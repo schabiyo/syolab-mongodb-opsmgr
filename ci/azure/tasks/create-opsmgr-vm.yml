@@ -25,9 +25,9 @@ params:
 
 
 inputs:
-  - name: mongodb-pipeline
+  - name: opsmgr-pipeline
   - name: keys-out
   - name: parameters-out
 
 run:
-    path: mongodb-pipeline/ci/azure/tasks/create-opsmgr-vm.sh
+    path: opsmgr-pipeline/ci/azure/tasks/create-opsmgr-vm.sh
