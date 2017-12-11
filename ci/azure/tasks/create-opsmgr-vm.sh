@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 
+touch mongodb-pipeline/ci/azure/tasks/ansible/opsmgr-host
 printf "%s\n" "[dockerhosts]" >> mongodb-pipeline/ci/azure/tasks/ansible/opsmgr-host
 printf "%s\n" "${OPSMGR_SERVER_HOSTNAME}.${AZURE_RESOURCE_LOCATION}.cloudapp.azure.com" >> mongodb-azure-scripts/ci/azure/tasks/ansible/opsgmr-host
 
