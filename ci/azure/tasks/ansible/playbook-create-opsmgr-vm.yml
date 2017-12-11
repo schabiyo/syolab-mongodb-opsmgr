@@ -12,7 +12,7 @@
           delete: never
   - name: Create virtual network
     azure_rm_virtualnetwork:
-      resource_group: AZURE_RESOURCE_LOCATION
+      resource_group: AZURE_RESOURCE_GROUP
       name: myVnet
       address_prefixes: "10.0.0.0/16"
   - name: Add subnet
