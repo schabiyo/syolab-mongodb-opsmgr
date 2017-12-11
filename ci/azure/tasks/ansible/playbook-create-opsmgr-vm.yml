@@ -13,23 +13,24 @@
   - name: Create virtual network
     azure_rm_virtualnetwork:
       resource_group: AZURE_RESOURCE_GROUP
-      name: myVnet
+      name: opsMgrVnet
       address_prefixes: "10.0.0.0/16"
   - name: Add subnet
     azure_rm_subnet:
       resource_group: AZURE_RESOURCE_GROUP
       name: mySubnet
       address_prefix: "10.0.1.0/24"
-      virtual_network: myVnet
+      virtual_network: opsMgrVnet
   - name: Create public IP address
     azure_rm_publicipaddress:
       resource_group: AZURE_RESOURCE_GROUP
       allocation_method: Static
-      name: myPublicIP
+      domain_name_label: OPSMGR_SERVER_HOSTNAME.AZURE_RESOURCE_LOCATION.cloudapp.azure.com
+      name: OpsMgrPIP
   - name: Create Network Security Group that allows SSH
     azure_rm_securitygroup:
       resource_group: AZURE_RESOURCE_GROUP
-      name: myNetworkSecurityGroup
+      name: opsMgrNSG
       rules:
         - name: SSH
           protocol: Tcp
@@ -40,11 +41,11 @@
   - name: Create virtual network inteface card
     azure_rm_networkinterface:
       resource_group: AZURE_RESOURCE_GROUP
-      name: myNIC
-      virtual_network: myVnet
+      name: opsMgrNIC
+      virtual_network: opsMgrVnet
       subnet: mySubnet
-      public_ip_name: myPublicIP
-      security_group: myNetworkSecurityGroup
+      public_ip_name: OpsMgrPIP
+      security_group: opsMgrNSG
   - name: Create VM
     azure_rm_virtualmachine:
       resource_group: AZURE_RESOURCE_GROUP
@@ -56,7 +57,7 @@
       ssh_public_keys: 
         - path: /home/AZURE_SERVER_ADMIN/.ssh/authorized_keys
           key_data: OPSMGR_SSHKEY_PUBLIC
-      network_interfaces: myNIC
+      network_interfaces: opsMgrNIC
       image:
         offer: CentOS
         publisher: OpenLogic
