@@ -25,7 +25,7 @@
     azure_rm_publicipaddress:
       resource_group: AZURE_RESOURCE_GROUP
       allocation_method: Static
-      domain_name_label: OPSMGR_SERVER_HOSTNAME.AZURE_RESOURCE_LOCATION.cloudapp.azure.com
+      domain_name_label: OPSMGR_SERVER_HOSTNAME
       name: OpsMgrPIP
   - name: Create Network Security Group that allows SSH
     azure_rm_securitygroup:
