@@ -8,9 +8,9 @@ printf "%s\n" "${OPSMGR_SERVER_HOSTNAME}.${AZURE_RESOURCE_LOCATION}.cloudapp.azu
 sed -i -e "s@AZURE_SERVER_ADMIN@${AZURE_SERVER_ADMIN}@g" opsmgr-pipeline/ci/azure/tasks/ansible/playbook-create-opsmgr-vm.yml
 sed -i -e "s@AZURE_RESOURCE_LOCATION@${AZURE_RESOURCE_LOCATION}@g" opsmgr-pipeline/ci/azure/tasks/ansible/playbook-create-opsmgr-vm.yml
 sed -i -e "s@AZURE_RESOURCE_GROUP@${AZURE_RESOURCE_GROUP}@g" opsmgr-pipeline/ci/azure/tasks/ansible/playbook-create-opsmgr-vm.yml
-sed -i -e "s@OPSMGR_SSHKEY_PUBLIC@${AZURE_RESOURCE_GROUP}@g" opsmgr-pipeline/ci/azure/tasks/ansible/playbook-create-opsmgr-vm.yml
+sed -i -e "s@OPSMGR_SSHKEY_PUBLIC@${OPSMGR_SSHKEY_PUBLIC}@g" opsmgr-pipeline/ci/azure/tasks/ansible/playbook-create-opsmgr-vm.yml
 sed -i -e "s@AZURE_SERVER_ADMIN@${AZURE_SERVER_ADMIN}@g" opsmgr-pipeline/ci/azure/tasks/ansible/playbook-create-opsmgr-vm.yml
-sed -i -e "s@OPSMGR_SERVER_HOSTNAME@dev-${OPSMGR_SERVER_HOSTNAME}@g" opsmgr-pipeline/ci/azure/tasks/ansible/playbook-create-opsmgr-vm.yml
+sed -i -e "s@OPSMGR_SERVER_HOSTNAME@${OPSMGR_SERVER_HOSTNAME}@g" opsmgr-pipeline/ci/azure/tasks/ansible/playbook-create-opsmgr-vm.yml
 
 
 # Init ssh folder and Copy ssh key file
@@ -26,7 +26,7 @@ printf "%s" "-----END RSA PRIVATE KEY-----" >> ~/.ssh/id_rsa
 
 echo $OPSMGR_SSHKEY_PUBLIC >> ~/.ssh/id_rsa.pub
 # Add this to the config file
-echo -e "Host=dev-${OPSMGR_SERVER_HOSTNAME}.${AZURE_RESOURCE_LOCATION}.cloudapp.azure.com\nIdentityFile=~/.ssh/id_rsa\nUser=${AZURE_SERVER_ADMIN}" >> ~/.ssh/config
+echo -e "Host=${OPSMGR_SERVER_HOSTNAME}.${AZURE_RESOURCE_LOCATION}.cloudapp.azure.com\nIdentityFile=~/.ssh/id_rsa\nUser=${AZURE_SERVER_ADMIN}" >> ~/.ssh/config
 chmod 600 ~/.ssh/config
 chmod 600 ~/.ssh/id_rsa*
 
