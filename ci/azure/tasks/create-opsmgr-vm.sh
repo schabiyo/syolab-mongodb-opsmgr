@@ -9,7 +9,7 @@ sed -i -e "s@AZURE_SERVER_ADMIN@${AZURE_SERVER_ADMIN}@g" opsmgr-pipeline/ci/azur
 sed -i -e "s@AZURE_RESOURCE_LOCATION@${AZURE_RESOURCE_LOCATION}@g" opsmgr-pipeline/ci/azure/tasks/ansible/playbook-create-opsmgr-vm.yml
 sed -i -e "s@AZURE_RESOURCE_GROUP@${AZURE_RESOURCE_GROUP}@g" opsmgr-pipeline/ci/azure/tasks/ansible/playbook-create-opsmgr-vm.yml
 sed -i -e "s@OPSMGR_SERVER_HOSTNAME@${OPSMGR_SERVER_HOSTNAME}@g" opsmgr-pipeline/ci/azure/tasks/ansible/playbook-create-opsmgr-vm.yml
-sed -i -e "s@OPSMGR_SSHKEY_PUBLIC@${OPSMGR_SSHKEY_PUBLIC}@g" opsmgr-pipeline/ci/azure/tasks/ansible/playbook-create-opsmgr-vm.yml
+sed -i -e "s~OPSMGR_SSHKEY_PUBLIC~${OPSMGR_SSHKEY_PUBLIC}~g" opsmgr-pipeline/ci/azure/tasks/ansible/playbook-create-opsmgr-vm.yml
 sed -i -e "s@AZURE_SERVER_ADMIN@${AZURE_SERVER_ADMIN}@g" opsmgr-pipeline/ci/azure/tasks/ansible/playbook-create-opsmgr-vm.yml
 
 
