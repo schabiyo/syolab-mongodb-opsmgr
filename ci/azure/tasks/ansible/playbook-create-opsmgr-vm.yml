@@ -1,0 +1,64 @@
+---
+- name: Create Ops Manager VM
+  hosts: localhost
+  connection: local
+  tasks:
+  - name: Create a resource group
+    azure_rm_resourcegroup:
+      name: AZURE_RESOURCE_GROUP
+      location: AZURE_RESOURCE_LOCATION
+      tags:
+          testing: testing
+          delete: never
+  - name: Create virtual network
+    azure_rm_virtualnetwork:
+      resource_group: AZURE_RESOURCE_LOCATION
+      name: myVnet
+      address_prefixes: "10.0.0.0/16"
+  - name: Add subnet
+    azure_rm_subnet:
+      resource_group: AZURE_RESOURCE_GROUP
+      name: mySubnet
+      address_prefix: "10.0.1.0/24"
+      virtual_network: myVnet
+  - name: Create public IP address
+    azure_rm_publicipaddress:
+      resource_group: AZURE_RESOURCE_GROUP
+      allocation_method: Static
+      name: myPublicIP
+  - name: Create Network Security Group that allows SSH
+    azure_rm_securitygroup:
+      resource_group: AZURE_RESOURCE_GROUP
+      name: myNetworkSecurityGroup
+      rules:
+        - name: SSH
+          protocol: Tcp
+          destination_port_range: 22
+          access: Allow
+          priority: 1001
+          direction: Inbound
+  - name: Create virtual network inteface card
+    azure_rm_networkinterface:
+      resource_group: AZURE_RESOURCE_GROUP
+      name: myNIC
+      virtual_network: myVnet
+      subnet: mySubnet
+      public_ip_name: myPublicIP
+      security_group: myNetworkSecurityGroup
+  - name: Create VM
+    azure_rm_virtualmachine:
+      resource_group: AZURE_RESOURCE_GROUP
+      name: OpsMgr
+      vm_size: Standard_DS1_v2
+      admin_username: AZURE_SERVER_ADMIN
+      short_hostname: OPSMGR_SERVER_HOSTNAME
+      ssh_password_enabled: false
+      ssh_public_keys: 
+        - path: /home/AZURE_SERVER_ADMIN/.ssh/authorized_keys
+          key_data: OPSMGR_SSHKEY_PUBLIC
+      network_interfaces: myNIC
+      image:
+        offer: CentOS
+        publisher: OpenLogic
+        sku: '7.3'
+        version: latest
