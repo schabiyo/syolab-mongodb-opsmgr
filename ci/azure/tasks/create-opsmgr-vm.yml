@@ -26,8 +26,6 @@ params:
 
 inputs:
   - name: opsmgr-pipeline
-  - name: keys-out
-  - name: parameters-out
 
 run:
     path: opsmgr-pipeline/ci/azure/tasks/create-opsmgr-vm.sh
