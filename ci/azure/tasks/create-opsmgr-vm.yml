@@ -17,11 +17,10 @@ params:
   AZURE_RESOURCE_GROUP:
   AZURE_RESOURCE_LOCATION:
 
-  jumpbox_admin_password:
-  server_ssh_private_key:
-  server_ssh_public_key:
-  server_admin_username:
-  server_prefix:
+  AZURE_SERVER_ADMIN:
+  OPSMGR_SSHKEY_PUBLIC:
+  OPSMGR_SERVER_HOSTNAME:
+  
 
 
 inputs:
