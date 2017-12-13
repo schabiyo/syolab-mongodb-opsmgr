@@ -4,5 +4,5 @@
   become: yes
   tasks:
   - yum: name=xfsprogs state=present
-  - shell: mkfs.xfs /dev/sdc # for Azure, migth be different with pther cloud providers 
+  - filesystem: fstype=xfs dev=/dev/sdc # for Azure, migth be different with pther cloud providers 
   - mount: name=/data src=/dev/sdc fstype=xfs opts=defaults,noatime state=mounted
