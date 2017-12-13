@@ -1,0 +1,8 @@
+---
+- hosts: OpsManager
+  remote_user: AZURE_SERVER_ADMIN
+  tasks:
+  - name: disable NUMA
+    shell: /bin/echo 0 | /usr/bin/sudo /usr/bin/tee /proc/sys/vm/zone_reclaim_mode 
+  - name: disable NUMA 2
+    shell: /usr/bin/sudo /sbin/sysctl -w vm.zone_reclaim_mode=0
