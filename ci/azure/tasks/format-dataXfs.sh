@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-touch opsmgr-pipeline/ci/azure/tasks/ansible/opsmgr-host
+#touch opsmgr-pipeline/ci/azure/tasks/ansible/opsmgr-host
 printf "%s\n" "[OpsManager]" >> opsmgr-pipeline/ci/azure/tasks/ansible/opsmgr-host
 printf "%s\n" "${OPSMGR_SERVER_HOSTNAME}.${AZURE_RESOURCE_LOCATION}.cloudapp.azure.com" >> opsmgr-pipeline/ci/azure/tasks/ansible/opsgmr-host
 
