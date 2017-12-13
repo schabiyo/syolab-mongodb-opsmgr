@@ -1,6 +1,6 @@
 ---
 - name: Create Ops Manager VM
-  hosts: localhost
+  #  hosts: localhost
   connection: local
   tasks:
   - name: Create a resource group
