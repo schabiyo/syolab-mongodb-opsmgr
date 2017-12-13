@@ -25,9 +25,6 @@ params:
 
 inputs:
   - name: opsmgr-pipeline
-
-outputs:
   - name: keys-out
-
 run:
-    path: opsmgr-pipeline/ci/azure/tasks/create-opsmgr-vm.sh
+    path: opsmgr-pipeline/ci/azure/tasks/disable-numa.sh

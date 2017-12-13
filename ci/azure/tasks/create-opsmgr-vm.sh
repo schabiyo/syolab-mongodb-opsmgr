@@ -30,7 +30,8 @@ echo -e "Host=${OPSMGR_SERVER_HOSTNAME}.${AZURE_RESOURCE_LOCATION}.cloudapp.azur
 chmod 600 ~/.ssh/config
 chmod 600 ~/.ssh/id_rsa*
 
-
+# Make the keys availanle for future tasks
+cp ~/.ssh/* keys-out/
 
 
 cd opsmgr-pipeline/ci/azure/tasks/ansible/
