@@ -11,9 +11,14 @@ sed -i -e "s@AZURE_SERVER_ADMIN@${AZURE_SERVER_ADMIN}@g" opsmgr-pipeline/ci/azur
 # Init ssh folder and Copy ssh key file
 #Get the SSH key from the configs adn add it to the ssh folder
 # Add this to the config file
-echo -e "Host=${OPSMGR_SERVER_HOSTNAME}.${AZURE_RESOURCE_LOCATION}.cloudapp.azure.com\nIdentityFile=~/.ssh/id_rsa\nUser=${AZURE_SERVER_ADMIN}" >> ~/.ssh/config
-chmod 600 ~/.ssh/config
-chmod 600 ~/.ssh/id_rsa*
+mkdir ~/.ssh
+#Get the keys generate by previous task instead of regenerating them
+
+cp keys-out/* ~/.ssh/
+
+#echo -e "Host=${OPSMGR_SERVER_HOSTNAME}.${AZURE_RESOURCE_LOCATION}.cloudapp.azure.com\nIdentityFile=~/.ssh/id_rsa\nUser=${AZURE_SERVER_ADMIN}" >> ~/.ssh/config
+#chmod 600 ~/.ssh/config
+#chmod 600 ~/.ssh/id_rsa*
 
 
 
