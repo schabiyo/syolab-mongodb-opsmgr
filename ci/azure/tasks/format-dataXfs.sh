@@ -1,10 +1,8 @@
 #!/bin/bash
 set -e
 
-#touch opsmgr-pipeline/ci/azure/tasks/ansible/opsmgr-host
-printf "%s\n" "[OpsManager]" >> opsmgr-pipeline/ci/azure/tasks/ansible/opsmgr-host
-printf "%s\n" "${OPSMGR_SERVER_HOSTNAME}.${AZURE_RESOURCE_LOCATION}.cloudapp.azure.com" >> opsmgr-pipeline/ci/azure/tasks/ansible/opsgmr-host
-
+sed -i -e "s@OPSMGR_SERVER_HOSTNAME@${OPSMGR_SERVER_HOSTNAME}@g" opsmgr-pipeline/ci/azure/tasks/ansible/opsmgr-host
+sed -i -e "s@AZURE_RESOURCE_LOCATION@${AZURE_RESOURCE_LOCATION}@g" opsmgr-pipeline/ci/azure/tasks/ansible/opsmgr-host
 sed -i -e "s@AZURE_SERVER_ADMIN@${AZURE_SERVER_ADMIN}@g" opsmgr-pipeline/ci/azure/tasks/ansible/playbook-dataXfs.yml
 
 
