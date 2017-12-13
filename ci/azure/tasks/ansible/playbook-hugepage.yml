@@ -1,5 +1,5 @@
 ---
-- hosts: opsManager
+- hosts: OpsManager
   remote_user: AZURE_SERVER_ADMIN
   tasks:
   - name: disable hugepage support
