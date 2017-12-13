@@ -27,4 +27,4 @@ inputs:
     - name: opsmgr-pipeline
     - name: keys-out
 run:
-    path: opsmgr-pipeline/ci/azure/tasks/playbook-dataXfs.sh
+    path: opsmgr-pipeline/ci/azure/tasks/format-dataXfs.sh
