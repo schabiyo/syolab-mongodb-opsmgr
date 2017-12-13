@@ -14,5 +14,5 @@ mkdir ~/.ssh
 cp keys-out/* ~/.ssh/
 
 cd opsmgr-pipeline/ci/azure/tasks/ansible/
- ansible-playbook -i opsmgr-host playbook-disable-hugepage.yml --private-key ~/.ssh/id_rsa
+ ansible-playbook -i opsmgr-host playbook-hugepage.yml --private-key ~/.ssh/id_rsa
 cd ..
