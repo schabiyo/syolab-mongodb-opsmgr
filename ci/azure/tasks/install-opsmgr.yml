@@ -1,0 +1,23 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source: 
+    repository: schabiyo/mongodb-azure-ci 
+    tag: latest
+
+
+params:
+  AZURE_SERVER_ADMIN:
+  OPSMGR_SSHKEY_PUBLIC:
+  OPSMGR_SERVER_HOSTNAME:
+  AZURE_RESOURCE_LOCATION: 
+
+
+inputs:
+    - name: opsmgr-pipeline
+    - name: keys-out
+
+run:
+    path: opsmgr-pipeline/ci/azure/tasks/install-opsmgr.sh

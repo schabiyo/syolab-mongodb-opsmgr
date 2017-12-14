@@ -1,0 +1,8 @@
+---
+- hosts: OpsManager
+  remote_user: AZURE_SERVER_ADMIN
+  become: yes
+  become_user: mongod
+  tasks:
+  - shell: numactl --interleave=all mongod --port 27017 --dbpath /data/appdb --logpath /data/appdb/mongodb.log --fork
+  - shell: mongod --port 27018 --dbpath /data/backup --logpath /data/backup/mongodb.log --fork

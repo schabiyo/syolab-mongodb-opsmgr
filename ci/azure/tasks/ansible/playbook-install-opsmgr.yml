@@ -1,0 +1,31 @@
+---
+- hosts: OpsManager
+  remote_user: AZURE_SERVER_ADMIN
+  become: yes
+  vars:
+    opsmanagerGPG: mongodb-mms-3.6.0.582-1.x86_64.rpm.gpg
+    opsmanager: mongodb-mms-3.6.0.582-1.x86_64.rpm
+  tasks:
+  - name: ssl check
+    stat: path=/etc/mongodb/ssl/ca.pem
+    register: ca_file
+  - name: Download Ops Manager
+    get_url: url=https://s3.eu-central-1.amazonaws.com/torstenspindler/{{opsmanagerGPG}} dest=/home/AZURE_SERVER_ADMIN/{{opsmanagerGPG}}
+  - name: Decipher Ops Manager
+    shell: echo 1234 | gpg --batch --passphrase-fd 0 {{opsmanagerGPG}}
+  - name: Install Ops Manager rpm
+    yum: name=/home/AZURE_SERVER_ADMIN/{{opsmanager}} state=present
+  - name: Add new root CA to config, if ssl is used
+    lineinfile:
+      path: /opt/mongodb/mms/conf/conf-mms.properties
+      regexp: '^mongodb.ssl.CAFile='
+      line: 'mongodb.ssl.CAFile=/etc/mongodb/ssl/ca.pem'
+    when: ca_file.stat.exists == True
+  - name: Add new Server PEM to config, if ssl is used
+    lineinfile:
+      path: /opt/mongodb/mms/conf/conf-mms.properties
+      regexp: '^mongodb.ssl.PEMKeyFile='
+      line: 'mongodb.ssl.PEMKeyFile=/etc/mongodb/ssl/host.pem'
+    when: ca_file.stat.exists == True
+  - name: Start Ops Manager service
+    service: name=mongodb-mms state=started
