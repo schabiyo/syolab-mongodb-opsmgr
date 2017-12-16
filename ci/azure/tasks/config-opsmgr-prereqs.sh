@@ -1,3 +1,5 @@
+# This will download and make the mongod binairies available, as well as create the necassary data directory
+
 #!/bin/bash
 set -e
 
