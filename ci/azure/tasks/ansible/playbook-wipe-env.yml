@@ -8,3 +8,4 @@
       name: AZURE_RESOURCE_GROUP
       location: AZURE_RESOURCE_LOCATION
       state: absent
+      force: True
