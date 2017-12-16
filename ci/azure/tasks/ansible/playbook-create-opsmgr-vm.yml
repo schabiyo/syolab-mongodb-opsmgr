@@ -1,5 +1,5 @@
 ---
-- name: Create Ops Manager VM
+- name: Create Ops Manager Resources
   hosts: localhost
   connection: local
   tasks:
