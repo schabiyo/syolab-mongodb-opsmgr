@@ -8,7 +8,6 @@ sed -i -e "s@AZURE_SERVER_ADMIN@${AZURE_SERVER_ADMIN}@g" opsmgr-pipeline/ci/azur
 
 # Init ssh folder and Copy ssh key file
 #Get the SSH key from the configs adn add it to the ssh folder
-# Add this to the config file
 mkdir ~/.ssh
 #Get the keys generate by previous task instead of regenerating them
 
