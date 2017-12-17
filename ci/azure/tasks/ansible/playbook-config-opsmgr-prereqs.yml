@@ -8,6 +8,9 @@
   - yum: name=mongodb-enterprise state=latest
   - yum: name=mongodb-enterprise-shell state=latest
   - yum: name=gpg state=latest
+  - yum:
+      name: numactl
+      state: latest
   - file: path=/data state=directory mode=0755 owner=mongod group=mongod
   - file: path=/data/appdb state=directory mode=0755 owner=mongod group=mongod
   - file: path=/data/backup state=directory mode=0755 owner=mongod group=mongod
