@@ -4,5 +4,8 @@
   become: yes
   become_user: mongod
   tasks:
+  - yum: 
+    name: numactl
+    state: latest
   - shell: numactl --interleave=all mongod --port 27017 --dbpath /data/appdb --logpath /data/appdb/mongodb.log --fork
-  - shell: mongod --port 27018 --dbpath /data/backup --logpath /data/backup/mongodb.log --fork
+  - shell: numactl --interleave=all mongod --port 27018 --dbpath /data/backup --logpath /data/backup/mongodb.log --fork
