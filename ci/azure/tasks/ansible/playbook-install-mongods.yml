@@ -4,5 +4,13 @@
   become: yes
   become_user: mongod
   tasks:
-  - shell: numactl --interleave=all mongod --port 27017 --dbpath /data/appdb --logpath /data/appdb/mongodb.log --fork
-  - shell: numactl --interleave=all mongod --port 27018 --dbpath /data/backup --logpath /data/backup/mongodb.log --fork
+    - name: Check if Mongo is running
+      shell: ps aux | grep mongod | grep 'port 27017'
+      ignore_errors: yes
+      changed_when: false
+      register: service_appdb_status
+    - name: Start AppDB 
+      shell: numactl --interleave=all mongod --port 27017 --dbpath /data/appdb --logpath /data/appdb/mongodb.log --fork
+      when: service_appdb_status.rc != 0
+    - name: Start Backup DB
+      shell: numactl --interleave=all mongod --port 27018 --dbpath /data/backup --logpath /data/backup/mongodb.log --fork
