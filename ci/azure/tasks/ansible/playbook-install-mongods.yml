@@ -12,5 +12,12 @@
     - name: Start AppDB 
       shell: numactl --interleave=all mongod --port 27017 --dbpath /data/appdb --logpath /data/appdb/mongodb.log --fork
       when: service_appdb_status.rc != 0
+
+    - name: Check if BackupDB is running
+      shell: ps aux | grep mongod | grep 'port 27018'
+      ignore_errors: yes
+      changed_when: false
+      register: service_backupdb_status
     - name: Start Backup DB
       shell: numactl --interleave=all mongod --port 27018 --dbpath /data/backup --logpath /data/backup/mongodb.log --fork
+      when: service_backupdb_status.rc != 0
