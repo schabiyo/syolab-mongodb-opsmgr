@@ -38,6 +38,12 @@
           access: Allow
           priority: 1001
           direction: Inbound
+        - name: WEB
+          protocol: 
+          destination_port_range: 8080
+          access: Allow
+          priority: 101
+          direction: Inbound
   - name: Create virtual network inteface card
     azure_rm_networkinterface:
       resource_group: AZURE_RESOURCE_GROUP
