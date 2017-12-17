@@ -7,7 +7,6 @@ image_resource:
     repository: schabiyo/mongodb-azure-ci 
     tag: latest
 
-
 params:
   AZURE_RESOURCE_LOCATION:
   AZURE_SERVER_ADMIN:
@@ -15,8 +14,6 @@ params:
   OPSMGR_SSHKEY_PRIVATE:
   OPSMGR_SERVER_HOSTNAME:
   
-
-
 inputs:
     - name: opsmgr-pipeline
 outputs:
