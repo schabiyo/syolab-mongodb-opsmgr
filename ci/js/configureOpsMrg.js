@@ -6,7 +6,7 @@
 const puppeteer = require('puppeteer');
 var nconf = require('nconf');
 // Then load configuration from a designated file.
-nconf.file({ file: 'config.json.local' });
+nconf.file({ file: 'config.json' });
 nconf.required(['url', 'registration', 'email']);
 
 const OPSMGR_URL= nconf.get('url');
