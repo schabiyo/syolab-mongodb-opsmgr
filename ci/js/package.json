@@ -1,0 +1,16 @@
+{
+  "name": "js",
+  "version": "1.0.0",
+  "description": "Configure a newly deployed Ops Manager outside of concourse of your CI",
+  "main": "configureOpsMrg.js",
+  "dependencies": {
+    "nconf": "^0.9.1",
+    "puppeteer": "^0.13.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
