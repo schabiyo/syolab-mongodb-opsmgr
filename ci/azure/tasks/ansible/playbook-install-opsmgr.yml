@@ -18,4 +18,4 @@
   - name: Install Ops Manager rpm
     yum: name=/home/AZURE_SERVER_ADMIN/{{opsmanager}} state=present
   - name: Start Ops Manager service
-    service: name=mongodb-mms state=started
+    service: name=mongodb-mms state=restarted
