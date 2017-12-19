@@ -1,18 +1,18 @@
 {
     "url":"OPSMGR_URL",
     "registration": {
-      "username": OPSMGR_REGISTRATION_USERNAME,
-      "password": OPSMGR_REGISTRATION_PASSWORD,
-      "firstName": OPSMGR_REGISTRATION_FIRSTNAME,
-      "lastName": OPSMGR_REGISTRATION_LASTNAME
+      "username": "OPSMGR_REGISTRATION_USERNAME",
+      "password": "OPSMGR_REGISTRATION_PASSWORD",
+      "firstName": "OPSMGR_REGISTRATION_FIRSTNAME",
+      "lastName": "OPSMGR_REGISTRATION_LASTNAME"
     },
     "email": {
-        "from": OPSMGR_CONFIG_EMAIL_FROM,
-        "replyTo": OPSMGR_CONFIG_EMAIL_REPLYTO,
-        "admin": OPSMGR_CONFIG_EMAIL_ADMIN,
-        "transport": OPSMGR_CONFIG_EMAIL_TRANSPORT,
-        "hostname": OPSMGR_CONFIG_EMAIL_HOSTNAME,
-        "port": OPSMGR_CONFIG_EMAIL_PORT
+        "from": "OPSMGR_CONFIG_EMAIL_FROM",
+        "replyTo": "OPSMGR_CONFIG_EMAIL_REPLYTO",
+        "admin": "OPSMGR_CONFIG_EMAIL_ADMIN",
+        "transport": "OPSMGR_CONFIG_EMAIL_TRANSPORT",
+        "hostname": "OPSMGR_CONFIG_EMAIL_HOSTNAME",
+        "port": "OPSMGR_CONFIG_EMAIL_PORT"
     },
     "backup":{}
 }
