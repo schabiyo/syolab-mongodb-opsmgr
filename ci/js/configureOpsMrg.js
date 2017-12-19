@@ -12,8 +12,8 @@ nconf.required(['url', 'registration', 'email']);
 const OPSMGR_URL= nconf.get('url');
 OPSMGR_REGISTRATION_USERNAME= nconf.get('registration:username');
 OPSMGR_REGISTRATION_PASSWORD= nconf.get('registration:password');
-OPSMGR_REGISTRATION_FIRSTNAME= nconf.get('registration:firstname');
-OPSMGR_REGISTRATION_LASTNAME= nconf.get('registration:lastname');
+OPSMGR_REGISTRATION_FIRSTNAME= nconf.get('registration:firstName');
+OPSMGR_REGISTRATION_LASTNAME= nconf.get('registration:lastName');
 
 OPSMGR_CONFIG_EMAIL_FROM= nconf.get('email:from');
 OPSMGR_CONFIG_EMAIL_REPLYTO= nconf.get('email:replyTo');
@@ -34,10 +34,9 @@ OPSMGR_CONFIG_EMAIL_PORT= nconf.get('email:port');
     await page.type('#mms-body-application > div > div > section > div > div > div > div > form > fieldset:nth-child(2) > input', OPSMGR_REGISTRATION_USERNAME);
     await page.type('#mms-body-application > div > div > section > div > div > div > div > form > fieldset:nth-child(3) > input',  OPSMGR_REGISTRATION_PASSWORD);
     await page.click('#mms-body-application > div > div > section > div > div > div > div > form > footer > button');
-    await page.screenshot({path: 'after_login.png'});
-
     console.log(page.url());
 
+    await page.screenshot({path: 'headless.png'});
     var innerText = null;
     try{
         innerText = await page.evaluate(() => document.querySelector('#mms-body-application > div > div > section > div > div > div > div > form > div > div > span').innerText);
@@ -78,6 +77,14 @@ OPSMGR_CONFIG_EMAIL_PORT= nconf.get('email:port');
         //#clientCertificateMode none|agents_only|required
         //#remoteIpHeader
 
+        console.log("emailFrom:"+OPSMGR_CONFIG_EMAIL_FROM);
+        console.log("emailAdmin:"+OPSMGR_CONFIG_EMAIL_ADMIN);
+        console.log("emailReplyTo:"+OPSMGR_CONFIG_EMAIL_REPLYTO);
+        console.log("emailHostname:"+OPSMGR_CONFIG_EMAIL_HOSTNAME);
+        console.log("emailPort:"+OPSMGR_CONFIG_EMAIL_PORT);
+        console.log("emailTransport:"+OPSMGR_CONFIG_EMAIL_TRANSPORT);
+
+
         //EMAIL
         await page.evaluate(function(url,emailFrom,emailReplyTo,emailAdmin,emailTransport,emailHostname,emailPort){
             document.querySelector('#centralUrl').value = url;
@@ -91,7 +98,7 @@ OPSMGR_CONFIG_EMAIL_PORT= nconf.get('email:port');
         }, OPSMGR_URL,OPSMGR_CONFIG_EMAIL_FROM,OPSMGR_CONFIG_EMAIL_REPLYTO,OPSMGR_CONFIG_EMAIL_ADMIN,OPSMGR_CONFIG_EMAIL_TRANSPORT,OPSMGR_CONFIG_EMAIL_HOSTNAME,OPSMGR_CONFIG_EMAIL_PORT);
         await page.screenshot({path: 'step1_completed.png'});
         await page.evaluate(() => {
-            var a = document.querySelector("body > div > div > main > div > footer > button > span");
+            var a = document.querySelector("body > div > div > main > div > footer > button");
             var e = document.createEvent('MouseEvents');
             e.initMouseEvent('click', true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
             a.dispatchEvent(e);
