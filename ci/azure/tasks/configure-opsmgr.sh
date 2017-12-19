@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/bin/sh
+#/bin/bash
 set -e
 
 ## Use sed to replace the parameters in configureOpsMrg.jsvar
@@ -22,8 +23,7 @@ sed -i -e "s@OPSMGR_CONFIG_EMAIL_PORT@${OPSMGR_CONFIG_EMAIL_PORT}@g" opsmgr-pipe
 ## run node
 
 cd opsmgr-pipeline/ci/js/
-npm i puppeteer
-npm install
-node configureOpsMrg.js
-
+    npm i puppeteer
+    npm install
+    node configureOpsMrg.js
 cd ..
