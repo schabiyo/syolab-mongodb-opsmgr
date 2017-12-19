@@ -2,6 +2,7 @@
 set -e
 
 ## Use sed to replace the parameters in configureOpsMrg.jsvar
+echo "Configuring Ops Manager"
 
 opsUrl="${OPSMGR_SERVER_HOSTNAME}.${AZURE_RESOURCE_LOCATION}.cloudapp.azure.com:8080";
 
