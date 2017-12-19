@@ -98,7 +98,7 @@ OPSMGR_CONFIG_EMAIL_PORT= nconf.get('email:port');
         }, OPSMGR_URL,OPSMGR_CONFIG_EMAIL_FROM,OPSMGR_CONFIG_EMAIL_REPLYTO,OPSMGR_CONFIG_EMAIL_ADMIN,OPSMGR_CONFIG_EMAIL_TRANSPORT,OPSMGR_CONFIG_EMAIL_HOSTNAME,OPSMGR_CONFIG_EMAIL_PORT);
         await page.screenshot({path: 'step1_completed.png'});
         await page.evaluate(() => {
-            var a = document.querySelector("body > div > div > main > div > footer > button");
+            var a = document.querySelector("body > div > div > main > div > footer > button > span");
             var e = document.createEvent('MouseEvents');
             e.initMouseEvent('click', true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
             a.dispatchEvent(e);
