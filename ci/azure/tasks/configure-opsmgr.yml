@@ -4,7 +4,7 @@ platform: linux
 image_resource:
   type: docker-image
   source: 
-    repository: schabiyo/alpine-node 
+    repository: schabiyo/puppeteer 
     tag: latest
 
 
