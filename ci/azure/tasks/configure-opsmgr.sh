@@ -3,7 +3,7 @@ set -e
 
 ## Use sed to replace the parameters in configureOpsMrg.jsvar
 
-opsUrl= "${OPSMGR_SERVER_HOSTNAME}.${AZURE_RESOURCE_LOCATION}.cloudapp.azure.com:8080"
+var opsUrl="${OPSMGR_SERVER_HOSTNAME}.${AZURE_RESOURCE_LOCATION}.cloudapp.azure.com:8080";
 
 sed -i -e "s~OPSMGR_URL~${opsUrl}~g" opsmgr-pipeline/ci/js/config.json
 sed -i -e "s~OPSMGR_REGISTRATION_USERNAME~${OPSMGR_REGISTRATION_USERNAME}~g" opsmgr-pipeline/ci/js/config.json
