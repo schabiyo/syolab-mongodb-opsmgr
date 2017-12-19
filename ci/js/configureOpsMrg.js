@@ -25,7 +25,7 @@ OPSMGR_CONFIG_EMAIL_PORT= nconf.get('email:port');
 
 (async () => {
     var OPSMGR_URL= nconf.get('url');
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({executablePath: 'google-chrome-unstable', args: ['--no-sandbox', '--headless', '--disable-gpu']});
     const page = await browser.newPage();
     await page.goto(OPSMGR_URL);
 
