@@ -67,7 +67,7 @@ OPSMGR_CONFIG_EMAIL_PORT= nconf.get('email:port');
     try{
         stepName = await page.evaluate(() => document.querySelector('body > div > div > main > div > div.form-view > div > form > fieldset:nth-child(1) > div.wizard-form-legend').innerText);
         console.log(stepName);
-    }catch(e){}
+    }catch(e){console.log(e);}
 
     //Step 1 : Fill Web Server and Email details
     if(stepName && stepName.indexOf('Web Server') !==-1){
