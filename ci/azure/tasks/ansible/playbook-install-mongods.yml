@@ -9,17 +9,17 @@
       ignore_errors: yes
       changed_when: false
       register: service_appdb_status
-    - debug: msg= "{{ service_appdb_status.stdout }}"
+    - debug: msg= "{{ service_appdb_status }}"
     - name: Start AppDB 
       shell: numactl --interleave=all mongod --port 27017 --dbpath /data/appdb --logpath /data/appdb/mongodb.log --fork
-      when: "{{service_appdb_status.stdout}}" == ""
+      when: service_appdb_status.stdout.find('--port 27017') == -1
 
     - name: Check if BackupDB is running
       shell: ps aux | grep mongod | grep 'port 27018'
       ignore_errors: yes
       changed_when: false
       register: service_backupdb_status
-    - debug: var=service_backupdb_status.stdout_lines
+    - debug: var=service_backupdb_status.stdout
     - name: Start Backup DB
       shell: numactl --interleave=all mongod --port 27018 --dbpath /data/backup --logpath /data/backup/mongodb.log --fork
-      when: service_backupdb_status.stdout == ""
+      when: service_backupdb_status.stdout.find('--port 27018') == -1
