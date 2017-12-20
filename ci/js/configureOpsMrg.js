@@ -85,18 +85,15 @@ OPSMGR_CONFIG_EMAIL_PORT= nconf.get('email:port');
         console.log("emailTransport:"+OPSMGR_CONFIG_EMAIL_TRANSPORT);
 
 
-        //EMAIL
-        await page.evaluate(function(url,emailFrom,emailReplyTo,emailAdmin,emailTransport,emailHostname,emailPort){
-            document.querySelector('#centralUrl').value = url;
-            document.querySelector('#fromEmailAddr').value = emailFrom;
-            document.querySelector('#replyToEmailAddr').value = emailReplyTo;
-            document.querySelector('#adminEmailAddr').value = emailAdmin;
-            document.querySelector('#mailTransport').value = emailTransport;
-            document.querySelector('#mailHostname').value = emailHostname;
-            document.querySelector('#mailPort').value = emailPort;
+        await page.type('#centralUrl',  OPSMGR_URL);
+        await page.type('#fromEmailAddr',  OPSMGR_CONFIG_EMAIL_FROM);
+        await page.type('#replyToEmailAddr',  OPSMGR_CONFIG_EMAIL_REPLYTO);
+        await page.type('#adminEmailAddr',  OPSMGR_CONFIG_EMAIL_ADMIN);
+        await page.type('#mailTransport',  OPSMGR_CONFIG_EMAIL_TRANSPORT);
+        await page.type('#mailHostname',  OPSMGR_CONFIG_EMAIL_HOSTNAME);
+        await page.type('#mailPort',  "577");
+        await page.type('#mailUsername',  "577");
 
-        }, OPSMGR_URL,OPSMGR_CONFIG_EMAIL_FROM,OPSMGR_CONFIG_EMAIL_REPLYTO,OPSMGR_CONFIG_EMAIL_ADMIN,OPSMGR_CONFIG_EMAIL_TRANSPORT,OPSMGR_CONFIG_EMAIL_HOSTNAME,OPSMGR_CONFIG_EMAIL_PORT);
-        await page.screenshot({path: 'step1_completed.png'});
         await page.evaluate(() => {
             var a = document.querySelector("body > div > div > main > div > footer > button > span");
             var e = document.createEvent('MouseEvents');
