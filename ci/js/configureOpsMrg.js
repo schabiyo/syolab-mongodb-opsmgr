@@ -36,6 +36,10 @@ OPSMGR_CONFIG_EMAIL_PORT= nconf.get('email:port');
     await page.click('#mms-body-application > div > div > section > div > div > div > div > form > footer > button');
     console.log(page.url());
 
+    setTimeout(function() {
+      console.log('Blah blah blah blah extra-blah');
+    }, 3000);
+
     await page.screenshot({path: 'headless.png'});
     var innerText = null;
     try{
