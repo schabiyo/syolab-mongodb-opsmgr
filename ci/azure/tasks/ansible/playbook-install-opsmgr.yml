@@ -19,3 +19,8 @@
     yum: name=/home/AZURE_SERVER_ADMIN/{{opsmanager}} state=present
   - name: Start Ops Manager service
     service: name=mongodb-mms state=restarted
+  - name: Wait 300 seconds for port 8080 to become open on the host, don't start checking for 20 seconds
+    wait_for:
+      port: 8080
+      delay: 20
+      msg: Looks like Ops Manager fails to start
