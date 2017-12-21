@@ -37,21 +37,18 @@ OPSMGR_CONFIG_EMAIL_PORT= nconf.get('email:port');
     console.log(page.url());
 
     setTimeout(function() {
-      console.log('Blah blah blah blah extra-blah');
+      console.log('....');
     }, 3000);
 
-    //#mms-body-application > div > div > section > div > header > h1 > a
-
-    console.log('Blah blah');
+    console.log('Waiting');
     await page.waitFor(5000); // to wait for 1000ms
     await page.screenshot({path: 'headless.png'});
     var innerText = null;
     try{
-        console.log('Checking InnerText');
+        console.log('Checking login result');
         innerText = await page.evaluate(() => document.querySelector('#mms-body-application > div > div > section > div > div > div > div > form > div > div > span').innerText);
         console.log(innerText);
     }catch(e){}
-    console.log('Blah');
     if(innerText != null){
 
         //Click on the registration link
@@ -107,7 +104,7 @@ OPSMGR_CONFIG_EMAIL_PORT= nconf.get('email:port');
         });
         // #userSvcClass
         await page.waitFor('#sessionMaxHours', {timeout: 10000}); // timeout after 10s
-        console.log("Step 1 : Web Server configuration completed ");
+        console.log("=====> Web Server configuration completed ");
 
     }else{console.log('Looks like Web Server has already been configured')}
     try{
@@ -144,7 +141,7 @@ OPSMGR_CONFIG_EMAIL_PORT= nconf.get('email:port');
             a.dispatchEvent(e);
         });
         await page.waitFor('#poolEnabled', {timeout: 10000}); // timeout after 10s
-        console.log("Step 2 : User authentication configuration completed ");
+        console.log("=====> User authentication configuration completed ");
 
     }else{console.log('Looks like User Authentication has been already configured')}
 
@@ -201,6 +198,7 @@ OPSMGR_CONFIG_EMAIL_PORT= nconf.get('email:port');
 
         await page.waitFor('#proxyHost', {timeout: 10000}); // timeout after 10s
 
+        console.log('=====> Backup/Snapshots configuration completed');
     }else{console.log('Looks like Backup/Snapshot has already been configured')}
 
     try{
@@ -221,6 +219,7 @@ OPSMGR_CONFIG_EMAIL_PORT= nconf.get('email:port');
         await page.waitFor('body > div > div > div > div.js-react-site-header > div > div > div.site-header-plan-details > h4', {timeout: 10000}); // timeout after 10s
         await page.screenshot({path: 'step5_completed.png'});
 
+        console.log('=====> HTTP/HTTPS Proxy configuration completed');
     }else{console.log('Looks like HTTPS Proxy has been already configured')}
 
 
