@@ -40,16 +40,18 @@ OPSMGR_CONFIG_EMAIL_PORT= nconf.get('email:port');
       console.log('Blah blah blah blah extra-blah');
     }, 3000);
 
+    #mms-body-application > div > div > section > div > header > h1 > a
 
     console.log('Blah blah');
-    await page.waitFor(1000); // to wait for 1000ms
-    await page.waitForVisible('body div');
+    await page.waitFor(5000); // to wait for 1000ms
     await page.screenshot({path: 'headless.png'});
     var innerText = null;
     try{
+        console.log('Checking InnerText');
         innerText = await page.evaluate(() => document.querySelector('#mms-body-application > div > div > section > div > div > div > div > form > div > div > span').innerText);
         console.log(innerText);
     }catch(e){}
+    console.log('Blah');
     if(innerText != null){
 
         //Click on the registration link
@@ -71,6 +73,7 @@ OPSMGR_CONFIG_EMAIL_PORT= nconf.get('email:port');
     }
     await page.waitFor(1000);
     await page.screenshot({path: 'step1.png'});
+
     var stepName = null;
     try{
         stepName = await page.evaluate(() => document.querySelector('body > div > div > main > div > div.form-view > div > form > fieldset:nth-child(1) > div.wizard-form-legend').innerText);
