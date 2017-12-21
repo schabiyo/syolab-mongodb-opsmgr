@@ -40,7 +40,7 @@ OPSMGR_CONFIG_EMAIL_PORT= nconf.get('email:port');
       console.log('Blah blah blah blah extra-blah');
     }, 3000);
 
-    #mms-body-application > div > div > section > div > header > h1 > a
+    //#mms-body-application > div > div > section > div > header > h1 > a
 
     console.log('Blah blah');
     await page.waitFor(5000); // to wait for 1000ms
