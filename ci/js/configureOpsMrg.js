@@ -71,19 +71,13 @@ OPSMGR_CONFIG_EMAIL_PORT= nconf.get('email:port');
 
     //Step 1 : Fill Web Server and Email details
     if(stepName && stepName.indexOf('Web Server') !==-1){
-        console.log('Step 1: Configuring Web Server');
+        console.log('Step 1: Configuring Web Server/Email');
+        //TODO HTTPS configuration
+
         //#httpsPEMKeyFile
         //#httpsPEMKeyFilePassword
         //#clientCertificateMode none|agents_only|required
         //#remoteIpHeader
-
-        console.log("emailFrom:"+OPSMGR_CONFIG_EMAIL_FROM);
-        console.log("emailAdmin:"+OPSMGR_CONFIG_EMAIL_ADMIN);
-        console.log("emailReplyTo:"+OPSMGR_CONFIG_EMAIL_REPLYTO);
-        console.log("emailHostname:"+OPSMGR_CONFIG_EMAIL_HOSTNAME);
-        console.log("emailPort:"+OPSMGR_CONFIG_EMAIL_PORT);
-        console.log("emailTransport:"+OPSMGR_CONFIG_EMAIL_TRANSPORT);
-
 
         await page.type('#centralUrl',  OPSMGR_URL);
         await page.type('#fromEmailAddr',  OPSMGR_CONFIG_EMAIL_FROM);
@@ -92,7 +86,7 @@ OPSMGR_CONFIG_EMAIL_PORT= nconf.get('email:port');
         await page.type('#mailTransport',  OPSMGR_CONFIG_EMAIL_TRANSPORT);
         await page.type('#mailHostname',  OPSMGR_CONFIG_EMAIL_HOSTNAME);
         await page.type('#mailPort',  "577");
-        await page.type('#mailUsername',  "577");
+        await page.type('#mailUsername',  "");
 
         await page.evaluate(() => {
             var a = document.querySelector("body > div > div > main > div > footer > button > span");
@@ -102,8 +96,9 @@ OPSMGR_CONFIG_EMAIL_PORT= nconf.get('email:port');
         });
         // #userSvcClass
         await page.waitFor('#sessionMaxHours', {timeout: 10000}); // timeout after 10s
+        console.log("Step 1 : Web Server configuration completed ");
 
-    }else{console.log('Looks like Step1 has been already configured')}
+    }else{console.log('Looks like Web Server has already been configured')}
     try{
         stepName = await page.evaluate(() => document.querySelector('body > div > div > main > div > div > div > form > fieldset > div:nth-child(1)').innerText);
         console.log(stepName);
@@ -112,7 +107,8 @@ OPSMGR_CONFIG_EMAIL_PORT= nconf.get('email:port');
     await page.screenshot({path: 'step1_completed.png'});
 
     if(stepName && stepName.indexOf('User Authentication') !==-1){
-        console.log('Step; 2: Configuring User Authentication');
+        console.log('Step: 2: Configuring User Authentication');
+        //TODO
         //#userSvcClass com.xgen.svc.mms.svc.user.UserSvcDb|com.xgen.svc.mms.svc.user.UserSvcLdap
         //#passwordMinChangesBeforeReuse
         //#passwordMaxFailedAttemptsBeforeAccountLock
@@ -137,7 +133,7 @@ OPSMGR_CONFIG_EMAIL_PORT= nconf.get('email:port');
             a.dispatchEvent(e);
         });
         await page.waitFor('#poolEnabled', {timeout: 10000}); // timeout after 10s
-        await page.screenshot({path: 'step2_completed.png'});
+        console.log("Step 2 : User authentication configuration completed ");
 
     }else{console.log('Looks like User Authentication has been already configured')}
 
@@ -167,7 +163,7 @@ OPSMGR_CONFIG_EMAIL_PORT= nconf.get('email:port');
     }catch(e){}
 
     if(stepName && stepName.indexOf('Backup Snapshots') !==-1){
-        console.log('Executing Step4');
+        console.log('Step 4 : Configiuring Backup/Snapshots');
 
 
 
@@ -194,7 +190,7 @@ OPSMGR_CONFIG_EMAIL_PORT= nconf.get('email:port');
 
         await page.waitFor('#proxyHost', {timeout: 10000}); // timeout after 10s
 
-    }else{console.log('Looks like Step4 has been already configured')}
+    }else{console.log('Looks like Backup/Snapshot has already been configured')}
 
     try{
         stepName = await page.evaluate(() => document.querySelector('body > div > div > main > div > div > div > form > fieldset > div:nth-child(1)').innerText);
