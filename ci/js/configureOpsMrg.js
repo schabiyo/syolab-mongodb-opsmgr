@@ -40,6 +40,10 @@ OPSMGR_CONFIG_EMAIL_PORT= nconf.get('email:port');
       console.log('Blah blah blah blah extra-blah');
     }, 3000);
 
+
+    console.log('Blah blah');
+    await page.waitFor(1000); // to wait for 1000ms
+    await page.waitForVisible('body div');
     await page.screenshot({path: 'headless.png'});
     var innerText = null;
     try{
