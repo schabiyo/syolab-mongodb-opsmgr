@@ -9,7 +9,7 @@ echo "Configuring Ops Manager"
 opsDomain="${OPSMGR_SERVER_HOSTNAME}.${AZURE_RESOURCE_LOCATION}.cloudapp.azure.com";
 
 if [ ${#OPSMGR_CENTRAL_URL} -gt 3 ];then
-    opsDomain = ${OPSMGR_CENTRAL_URL}
+    opsDomain="${OPSMGR_CENTRAL_URL}"
 fi
 
 
