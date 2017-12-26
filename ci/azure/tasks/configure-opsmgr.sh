@@ -8,12 +8,12 @@ echo "Configuring Ops Manager"
 
 opsDomain="${OPSMGR_SERVER_HOSTNAME}.${AZURE_RESOURCE_LOCATION}.cloudapp.azure.com";
 
-if [ ${#OPSMGR_CENTRAL_URL} ge 4];then
+if [ ${#OPSMGR_CENTRAL_URL} -gt 3 ];then
     opsDomain = ${OPSMGR_CENTRAL_URL}
 fi
 
 
-if [ ${#OPSMGR_PEM} ge 50 ]; then
+if [ ${#OPSMGR_PEM} -gt 50 ]; then
 
   #Get the SSH key from the configs adn add it to the ssh folder
   mkdir ~/.ssh
