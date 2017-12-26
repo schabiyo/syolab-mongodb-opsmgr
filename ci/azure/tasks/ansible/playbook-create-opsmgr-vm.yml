@@ -27,7 +27,7 @@
       allocation_method: Static
       domain_name_label: OPSMGR_SERVER_HOSTNAME
       name: OpsMgrPIP
-  - name: Create Network Security Group that allows SSH
+  - name: Create Network Security Group that allows SSH and open Ports 8080 and 8443
     azure_rm_securitygroup:
       resource_group: AZURE_RESOURCE_GROUP
       name: opsMgrNSG

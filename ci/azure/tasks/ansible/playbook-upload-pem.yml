@@ -1,0 +1,13 @@
+---
+- hosts: OpsManager
+  remote_user: AZURE_SERVER_ADMIN
+  become: yes
+  tasks:
+  - name: pem check
+    stat: path=/home/AZURE_SERVER_ADMIN/opsmanager.pem
+    register: pem_file
+  - name: Uploading PEM file
+    copy:
+      src: pem_file
+      dest: /etc/security/opsmanager.pem
+    when: pem_file.stat.exists == True

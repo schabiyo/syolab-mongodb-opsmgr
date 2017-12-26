@@ -4,7 +4,7 @@ platform: linux
 image_resource:
   type: docker-image
   source: 
-    repository: schabiyo/puppeteer2 
+    repository: schabiyo/puppeteer3 
     tag: latest
 
 
@@ -18,6 +18,13 @@ params:
   AZURE_RESOURCE_LOCATION:
   OPSMGR_SERVER_HOSTNAME:
   AZURE_SERVER_ADMIN:
+
+  OPSMGR_CENTRAL_URL:
+  OPSMGR_SSHKEY_PUBLIC:
+  OPSMGR_SSHKEY_PRIVATE:
+  OPSMGR_PEM:
+  OPSMGR_PEM_PWD:
+  OPSMGR_CLIENT_CERTIFICATE_MODE:
   
 
 

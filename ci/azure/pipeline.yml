@@ -28,6 +28,7 @@ jobs:
       OPSMGR_DATA_DISK_SIZE: {{OPSMGR_DATA_DISK_SIZE}}
   - task: Format Data Disk as XFS
     file: opsmgr-pipeline/ci/azure/tasks/format-dataXfs.yml
+    attempts: 3
     params:
       AZURE_RESOURCE_LOCATION: {{AZURE_RESOURCE_LOCATION}}
       OPSMGR_SERVER_HOSTNAME: {{OPSMGR_SERVER_HOSTNAME}}
@@ -79,6 +80,7 @@ jobs:
     passed: [install-opsmgr-binairies]
   - task: configure-opsmgr
     file: opsmgr-pipeline/ci/azure/tasks/configure-opsmgr.yml
+    attempts: 10
     params:
       AZURE_RESOURCE_LOCATION: {{AZURE_RESOURCE_LOCATION}}
       OPSMGR_SERVER_HOSTNAME: {{OPSMGR_SERVER_HOSTNAME}}
@@ -92,6 +94,14 @@ jobs:
       OPSMGR_CONFIG_EMAIL_TRANSPORT: {{OPSMGR_CONFIG_EMAIL_TRANSPORT}}
       OPSMGR_CONFIG_EMAIL_HOSTNAME: {{OPSMGR_CONFIG_EMAIL_HOSTNAME}}
       OPSMGR_CONFIG_EMAIL_PORT: {{OPSMGR_CONFIG_EMAIL_PORT}}
+      OPSMGR_CENTRAL_URL: {{OPSMGR_CENTRAL_URL}}
+      OPSMGR_SSHKEY_PRIVATE: {{OPSMGR_SSHKEY_PUBLIC}}
+      OPSMGR_SSHKEY_PRIVATE: {{OPSMGR_SSHKEY_PRIVATE}}
+      OPSMGR_PEM: {{OPSMGR_PEM}}
+      OPSMGR_PEM_PWD: {{OPSMGR_PEM}}
+      OPSMGR_CLIENT_CERTIFICATE_MODE: {{OPSMGR_PEM}}
+
+
 
 
 - name: wipe-env
