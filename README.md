@@ -23,17 +23,8 @@ Next step would be to download the fly CLI. Open a brower and point it to: 192.1
 
 
 
-## Installation
-``` bash
-npm i puppeteer
-npm install nconf --save
-```
-     
-## Run Tests
-Tests are written in vows and give complete coverage of all APIs and storage engines.
-        
-``` bash
- $  test
- node configureOpsMrg.js
-```
+## Usage
+
+Coming soon
+
             
