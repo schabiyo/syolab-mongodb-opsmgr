@@ -1,5 +1,5 @@
 # syolab-mongodb-opsmgr
-Concourse pipeline for automatic deployment &amp;  upgrade of Mongo DB Ops Manager
+Concourse pipeline for automatic deployment (including configuration) &amp;  upgrade of Mongo DB Ops Manager on Azure
 
 ## Use a local Concourse 
 
