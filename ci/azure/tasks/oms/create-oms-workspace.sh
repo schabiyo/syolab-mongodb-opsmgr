@@ -10,8 +10,6 @@ source opsmgr-pipeline/ci/azure/tasks/oms/utils/getWorkspaceUrl.sh
 
 az login --service-principal -u "$AZURE_CLIENT_ID" -p "$AZURE_SECRET" --tenant "$AZURE_TENANT"
 az account set --subscription "$AZURE_SUBSCRIPTION_ID"  &> /dev/null
-# Create a resource group if it does not exist.
-az group create --name $AZURE_RESOURCE_GROUP --location $AZURE_RESOURCE_LOCATION &> /dev/null
 
 MESSAGE="Getting an access token from AAD" ; simple_blue_echo
 
