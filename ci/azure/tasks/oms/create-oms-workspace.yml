@@ -1,0 +1,26 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source: 
+    repository: schabiyo/ossdemo 
+    tag: latest
+
+params:
+  AZURE_SUBSCRIPTION_ID:
+  AZURE_CLIENT_ID: 
+  AZURE_SECRET: 
+  AZURE_TENANT: 
+
+  AZURE_RESOURCE_GROUP:
+  AZURE_RESOURCE_LOCATION:
+
+  OMS_WORKSPACE_NAME:
+  OMS_WORKSPACE_SKU:
+  
+inputs:
+  - name: opsmgr-pipeline
+
+run:
+    path: opsmgr-pipeline/ci/azure/tasks/oms/create-oms-workspace.sh
