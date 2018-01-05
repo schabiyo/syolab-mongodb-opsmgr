@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-source azure-ossdemos-git/infra-provisioning/utils/pretty-echo.sh
+source opsmgr-pipeline/ci/azure/tasks/oms/utils/pretty-echo.sh
 
 getWorkspaceUrl() {
 
