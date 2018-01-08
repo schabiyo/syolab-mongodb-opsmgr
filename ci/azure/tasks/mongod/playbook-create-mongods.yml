@@ -55,19 +55,19 @@
   - name: Create VM
     azure_rm_virtualmachine:
       resource_group: AZURE_RESOURCE_GROUP
-      name: "{{ item }}"
+      name: "syomongod{{ item }}"
       vm_size: Standard_F1s
-      managed_disk_type: OPSMGR_DATA_DISK_TYPE
+      managed_disk_type: MONGOD_DATA_DISK_TYPE
       admin_username: AZURE_SERVER_ADMIN
-      admin_password: AZURE_SERVER_PASSWORD
-      short_hostname: "{{ item }}"
-      ssh_password_enabled: true
+      short_hostname: "syomongod{{ item }}"
+      ssh_password_enabled: false
+      ssh_public_keys:
+        - path: /home/AZURE_SERVER_ADMIN/.ssh/authorized_keys
+          key_data: OPSMGR_SSHKEY_PUBLIC
       network_interfaces: mongodsNIC
       image:
         offer: CentOS
         publisher: OpenLogic
         sku: '7.3'
         version: latest
-    with_items:
-      - syomongod1
-      - syomongod2
+    with_sequence: count=2
