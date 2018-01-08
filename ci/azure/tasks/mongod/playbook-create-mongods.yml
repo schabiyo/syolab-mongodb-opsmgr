@@ -25,11 +25,9 @@
     azure_rm_publicipaddress:
       resource_group: AZURE_RESOURCE_GROUP
       allocation_method: Static
-      domain_name_label: "{{ item }}"
-      name: "{{ item }}"
-    with_items:
-      - syomongod1
-      - syomongod2
+      domain_name_label: "syomongod{{ item }}"
+      name: "syomongod{{ item }}"
+    with_sequence: count=2
   - name: Create Network Security Group that allows Ports 27000-27020
     azure_rm_securitygroup:
       resource_group: AZURE_RESOURCE_GROUP
@@ -47,7 +45,7 @@
       name: "syomongodNIC{{ item }}"
       virtual_network: mongodsVnet
       subnet: mySubnet
-      public_ip_name: "{{ item }}"
+      public_ip_name: "syomongod{{ item }}"
       security_group: mongodsNSG
     with_sequence: count=2
   - name: Create VM
