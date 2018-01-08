@@ -59,7 +59,7 @@
       ssh_password_enabled: false
       ssh_public_keys:
         - path: /home/AZURE_SERVER_ADMIN/.ssh/authorized_keys
-          key_data: OPSMGR_SSHKEY_PUBLIC
+          key_data: MONGOD_SSHKEY_PUBLIC
       network_interfaces: "syomongodNIC{{ item }}"
       image:
         offer: CentOS
