@@ -1,0 +1,33 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source: 
+    repository: schabiyo/mongodb-azure-ci 
+    tag: latest
+
+
+params:
+  AZURE_SUBSCRIPTION_ID:
+  AZURE_CLIENT_ID: 
+  AZURE_SECRET: 
+  AZURE_TENANT: 
+
+  AZURE_RESOURCE_GROUP:
+  AZURE_RESOURCE_LOCATION:
+
+  AZURE_SERVER_ADMIN:
+  OPSMGR_SSHKEY_PUBLIC:
+  OPSMGR_SERVER_HOSTNAME:
+  
+
+
+inputs:
+  - name: opsmgr-pipeline
+
+outputs:
+  - name: keys-out
+
+run:
+    path: opsmgr-pipeline/ci/azure/tasks/create-opsmgr-vm.sh

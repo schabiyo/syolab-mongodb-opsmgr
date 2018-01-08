@@ -1,4 +1,22 @@
 ---
+groups:
+- name: Ops Manager
+  jobs:
+  - create-opsman-vm
+  - create-oms-workspace
+  - install-opsmgr-binairies
+  - configure-opsmgr
+  - start-monitoring-in-oms
+  - wipe-env
+
+
+- name: Servers Pool
+  jobs:
+  - provision-servers
+  - install-automation-agent
+
+
+
 resources:
 - name: opsmgr-pipeline
   type: git
@@ -7,7 +25,39 @@ resources:
     branch: master
 
 jobs:
+- name: provision-servers
+  plan:
+  - get: opsmgr-pipeline
+    trigger: false
+  - task: provision
+    file: opsmgr-pipeline/ci/azure/tasks/mongod/create-mongods.yml
+    params:
+      AZURE_SUBSCRIPTION_ID: {{AZURE_SUBSCRIPTION_ID}}
+      AZURE_CLIENT_ID: {{AZURE_CLIENT_ID}}
+      AZURE_SECRET: {{AZURE_SECRET}}
+      AZURE_TENANT: {{AZURE_TENANT}}
+      AZURE_RESOURCE_GROUP: {{MONGOD_RESOURCE_GROUP}}
+      AZURE_RESOURCE_LOCATION: {{MONGOD_LOCATION}}
+      OPSMGR_SERVER_HOSTNAME: {{OPSMGR_SERVER_HOSTNAME}}
+      AZURE_SERVER_ADMIN: {{AZURE_SERVER_ADMIN}}
+      NB_NODES: {{NB_NODES}}
+      MONGOD_PREFIX: {{MONGOD_PREFIX}}
+      MONGOD_SSHKEY_PRIVATE: {{MONGOD_SSHKEY_PRIVATE}}
+      MONGOD_SSHKEY_PUBLIC: {{MONGOD_SSHKEY_PUBLIC}}
+
+- name: install-automation-agent
+  plan:
+  - get: opsmgr-pipeline
+    trigger: true
+    passed: [provision-servers]
+  - task: Install Automation agent 
+    file: opsmgr-pipeline/ci/azure/tasks/mongod/install-automation-agent.yml
+
+
+    
+    
 - name: create-opsman-vm
+  serial_groups: [oms]
   plan:
   - get: opsmgr-pipeline
     trigger: true
@@ -46,7 +96,49 @@ jobs:
       OPSMGR_SERVER_HOSTNAME: {{OPSMGR_SERVER_HOSTNAME}}
       AZURE_SERVER_ADMIN: {{AZURE_SERVER_ADMIN}}
 
+
+- name: create-oms-workspace
+  serial: true
+  public: true
+  serial_groups: [oms]
+  plan:
+    - get:  opsmgr-pipeline
+      trigger: true
+    - task: create-oms-workspace
+      file: opsmgr-pipeline/ci/azure/tasks/oms/create-oms-workspace.yml
+      params:
+        AZURE_SUBSCRIPTION_ID: {{AZURE_SUBSCRIPTION_ID}}
+        AZURE_CLIENT_ID: {{AZURE_CLIENT_ID}}
+        AZURE_SECRET: {{AZURE_SECRET}}
+        AZURE_TENANT: {{AZURE_TENANT}}
+        AZURE_RESOURCE_LOCATION: {{OMS_WORKSPACE_LOCATION}}
+        AZURE_RESOURCE_GROUP: {{AZURE_RESOURCE_GROUP}}
+        OMS_WORKSPACE_NAME: {{OMS_WORKSPACE_NAME}}
+        OMS_WORKSPACE_SKU: {{OMS_WORKSPACE_SKU}}
+
+
+- name: start-monitoring-in-oms
+  serial: true
+  plan:
+  - aggregate:
+    - get:  opsmgr-pipeline
+      passed: [create-oms-workspace,configure-opsmgr]
+      trigger: true
+  - task: start-monitoring-oms
+    file: opsmgr-pipeline/ci/azure/tasks/oms/create-oms-workspace.yml
+    params:
+      AZURE_SUBSCRIPTION_ID: {{AZURE_SUBSCRIPTION_ID}}
+      AZURE_CLIENT_ID: {{AZURE_CLIENT_ID}}
+      AZURE_SECRET: {{AZURE_SECRET}}
+      AZURE_TENANT: {{AZURE_TENANT}}
+      AZURE_RESOURCE_LOCATION: {{AZURE_RESOURCE_LOCATION}}
+      AZURE_RESOURCE_GROUP: {{AZURE_RESOURCE_GROUP}}
+      OMS_WORKSPACE_NAME: {{OMS_WORKSPACE_NAME}}
+      OMS_WORKSPACE_SKU: {{OMS_WORKSPACE_SKU}}
+
+
 - name: install-opsmgr-binairies
+  serial_groups: [oms]
   plan:
   - get: opsmgr-pipeline
     trigger: true

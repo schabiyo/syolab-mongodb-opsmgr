@@ -14,3 +14,4 @@
   - file: path=/data state=directory mode=0755 owner=mongod group=mongod
   - file: path=/data/appdb state=directory mode=0755 owner=mongod group=mongod
   - file: path=/data/backup state=directory mode=0755 owner=mongod group=mongod
+  - file: path=/data/head state=directory mode=0755 owner=mongodb-mms group=mongodb-mms

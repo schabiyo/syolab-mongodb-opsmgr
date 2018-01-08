@@ -1,0 +1,73 @@
+---
+- name: Create Ops Manager Resources
+  hosts: localhost
+  connection: local
+  tasks:
+  - name: Create a resource group
+    azure_rm_resourcegroup:
+      name: AZURE_RESOURCE_GROUP
+      location: AZURE_RESOURCE_LOCATION
+      tags:
+          testing: testing
+          delete: never
+  - name: Create virtual network
+    azure_rm_virtualnetwork:
+      resource_group: AZURE_RESOURCE_GROUP
+      name: mongodsVnet
+      address_prefixes: "10.0.0.0/16"
+  - name: Add subnet
+    azure_rm_subnet:
+      resource_group: AZURE_RESOURCE_GROUP
+      name: mySubnet
+      address_prefix: "10.0.1.0/24"
+      virtual_network: mongodsVnet
+  - name: Create public IP address
+    azure_rm_publicipaddress:
+      resource_group: AZURE_RESOURCE_GROUP
+      allocation_method: Static
+      domain_name_label: "{{ item }}"
+      name: "{{ item }}"
+    with_items:
+      - syomongod1
+      - syomongod2
+  - name: Create Network Security Group that allows SSH and open Ports 8080 and 8443
+    azure_rm_securitygroup:
+      resource_group: AZURE_RESOURCE_GROUP
+      name: mongodsNSG
+      rules:
+        - name: SSH
+          protocol: Tcp
+          destination_port_range: 22
+          access: Allow
+          priority: 1001
+          direction: Inbound
+  - name: Create virtual network inteface card
+    azure_rm_networkinterface:
+      resource_group: AZURE_RESOURCE_GROUP
+      name: "{{ item }}"
+      virtual_network: opsMgrVnet
+      subnet: mySubnet
+      public_ip_name: "{{ item }}"
+      security_group: opsMgrNSG
+      with_items:
+        - syomongod1
+        - syomongod2
+  - name: Create VM
+    azure_rm_virtualmachine:
+      resource_group: AZURE_RESOURCE_GROUP
+      name: "{{ item }}"
+      vm_size: Standard_F1s
+      managed_disk_type: OPSMGR_DATA_DISK_TYPE
+      admin_username: AZURE_SERVER_ADMIN
+      admin_password: AZURE_SERVER_PASSWORD
+      short_hostname: "{{ item }}"
+      ssh_password_enabled: true
+      network_interfaces: mongodsNIC
+      image:
+        offer: CentOS
+        publisher: OpenLogic
+        sku: '7.3'
+        version: latest
+    with_items:
+      - syomongod1
+      - syomongod2
