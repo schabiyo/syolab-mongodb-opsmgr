@@ -48,8 +48,8 @@
       virtual_network: opsMgrVnet
       subnet: mySubnet
       public_ip_name: "{{ item }}"
-      security_group: opsMgrNSG
-      with_items:
+      security_group: mongodsNSG
+    with_items:
         - syomongod1
         - syomongod2
   - name: Create VM
