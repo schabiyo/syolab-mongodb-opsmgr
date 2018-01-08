@@ -1,5 +1,5 @@
 ---
-- name: Create Ops Manager Resources
+- name: Create MongoD Resources
   hosts: localhost
   connection: local
   tasks:
@@ -45,7 +45,7 @@
     azure_rm_networkinterface:
       resource_group: AZURE_RESOURCE_GROUP
       name: "{{ item }}"
-      virtual_network: opsMgrVnet
+      virtual_network: mongodsVnet
       subnet: mySubnet
       public_ip_name: "{{ item }}"
       security_group: mongodsNSG
