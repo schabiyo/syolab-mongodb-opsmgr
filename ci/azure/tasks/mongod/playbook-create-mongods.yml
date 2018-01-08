@@ -30,14 +30,14 @@
     with_items:
       - syomongod1
       - syomongod2
-  - name: Create Network Security Group that allows SSH and open Ports 8080 and 8443
+  - name: Create Network Security Group that allows Ports 27000-27020
     azure_rm_securitygroup:
       resource_group: AZURE_RESOURCE_GROUP
       name: mongodsNSG
       rules:
         - name: SSH
           protocol: Tcp
-          destination_port_range: 22
+          destination_port_range: 27000-27020
           access: Allow
           priority: 1001
           direction: Inbound
@@ -49,7 +49,7 @@
       subnet: mySubnet
       public_ip_name: "{{ item }}"
       security_group: mongodsNSG
-    with_sequence: count 2
+    with_sequence: count=2
   - name: Create VM
     azure_rm_virtualmachine:
       resource_group: AZURE_RESOURCE_GROUP
