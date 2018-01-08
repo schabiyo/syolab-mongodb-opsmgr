@@ -44,14 +44,12 @@
   - name: Create virtual network inteface card
     azure_rm_networkinterface:
       resource_group: AZURE_RESOURCE_GROUP
-      name: "{{ item }}"
+      name: "syomongodNIC{{ item }}"
       virtual_network: mongodsVnet
       subnet: mySubnet
       public_ip_name: "{{ item }}"
       security_group: mongodsNSG
-    with_items:
-        - syomongod1
-        - syomongod2
+    with_sequence: count 2
   - name: Create VM
     azure_rm_virtualmachine:
       resource_group: AZURE_RESOURCE_GROUP
@@ -64,7 +62,7 @@
       ssh_public_keys:
         - path: /home/AZURE_SERVER_ADMIN/.ssh/authorized_keys
           key_data: OPSMGR_SSHKEY_PUBLIC
-      network_interfaces: mongodsNIC
+      network_interfaces: "syomongodNIC{{ item }}"
       image:
         offer: CentOS
         publisher: OpenLogic
