@@ -1,0 +1,75 @@
+---
+- name: Create MongoD Resources
+  hosts: localhost
+  connection: local
+  tasks:
+  - name: Create a resource group
+    azure_rm_resourcegroup:
+      name: AZURE_RESOURCE_GROUP
+      location: AZURE_RESOURCE_LOCATION
+      tags:
+          testing: testing
+          delete: never
+  - name: Create virtual network
+    azure_rm_virtualnetwork:
+      resource_group: AZURE_RESOURCE_GROUP
+      name: mongodsVnet
+      address_prefixes: "10.0.0.0/16"
+  - name: Add subnet
+    azure_rm_subnet:
+      resource_group: AZURE_RESOURCE_GROUP
+      name: mySubnet
+      address_prefix: "10.0.1.0/24"
+      virtual_network: mongodsVnet
+  - name: Create public IP address
+    azure_rm_publicipaddress:
+      resource_group: AZURE_RESOURCE_GROUP
+      allocation_method: Static
+      domain_name_label: "syomongod{{ item }}"
+      name: "syomongod{{ item }}"
+    with_sequence: count=2
+  - name: Create Network Security Group that allows Ports 27000-27020
+    azure_rm_securitygroup:
+      resource_group: AZURE_RESOURCE_GROUP
+      name: mongodsNSG
+      rules:
+        - name: MongoDB
+          protocol: Tcp
+          destination_port_range: 27000-27020
+          access: Allow
+          priority: 101
+          direction: Inbound
+        - name: SSH
+          protocol: Tcp
+          destination_port_range: 22
+          access: Allow
+          priority: 1001
+          direction: Inbound
+  - name: Create virtual network inteface card
+    azure_rm_networkinterface:
+      resource_group: AZURE_RESOURCE_GROUP
+      name: "syomongodNIC{{ item }}"
+      virtual_network: mongodsVnet
+      subnet: mySubnet
+      public_ip_name: "syomongod{{ item }}"
+      security_group: mongodsNSG
+    with_sequence: count=2
+  - name: Create VM
+    azure_rm_virtualmachine:
+      resource_group: AZURE_RESOURCE_GROUP
+      name: "syomongod{{ item }}"
+      vm_size: Standard_F1s
+      managed_disk_type: MONGOD_DATA_DISK_TYPE
+      admin_username: AZURE_SERVER_ADMIN
+      short_hostname: "syomongod{{ item }}"
+      ssh_password_enabled: false
+      ssh_public_keys:
+        - path: /home/AZURE_SERVER_ADMIN/.ssh/authorized_keys
+          key_data: MONGOD_SSHKEY_PUBLIC
+      network_interfaces: "syomongodNIC{{ item }}"
+      image:
+        offer: CentOS
+        publisher: OpenLogic
+        sku: '7.3'
+        version: latest
+    with_sequence: count=2

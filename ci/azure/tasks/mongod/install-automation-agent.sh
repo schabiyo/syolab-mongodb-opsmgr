@@ -1,21 +1,21 @@
 #!/bin/bash
 set -e
 
-touch opsmgr-pipeline/ci/azure/tasks/ansible/hosts
-printf "%s\n" "[opsManager]" >> opsmgr-pipeline/ci/azure/tasks/mongod/hosts
-printf "%s\n" "${OPSMGR_SERVER_HOSTNAME}.${AZURE_RESOURCE_LOCATION}.cloudapp.azure.com" >> opsmgr-pipeline/ci/azure/tasks/mongod/hosts
+touch opsmgr-pipeline/ci/azure/tasks/mongod/ansible/hosts
+printf "%s\n" "[opsManager]" >> opsmgr-pipeline/ci/azure/tasks/mongod/ansible/hosts
+printf "%s\n" "${OPSMGR_SERVER_HOSTNAME}.${AZURE_RESOURCE_LOCATION}.cloudapp.azure.com" >> opsmgr-pipeline/ci/azure/tasks/mongod/ansiblehosts
 
-printf "%s\n" "[mongoDs]" >> opsmgr-pipeline/ci/azure/tasks/mongod/hosts
+printf "%s\n" "[mongoDs]" >> opsmgr-pipeline/ci/azure/tasks/mongod/ansible/hosts
 
 for (( i=1; i<"${NB_NODES}" ; i++ )) ; do
-  printf "%s\n" "${MONGOD_SERVER_PREFIX}${i}.${AZURE_RESOURCE_LOCATION}.cloudapp.azure.com" >> opsmgr-pipeline/ci/azure/tasks/mongod/hosts
+  printf "%s\n" "${MONGOD_SERVER_PREFIX}${i}.${AZURE_RESOURCE_LOCATION}.cloudapp.azure.com" >> opsmgr-pipeline/ci/azure/tasks/mongod/ansible/hosts
 done
 
 
-sed -i -e "s@AZURE_SERVER_ADMIN@${AZURE_SERVER_ADMIN}@g" opsmgr-pipeline/ci/azure/tasks/mongod/playbook-automation-agent.yml
-sed -i -e "s@AZURE_RESOURCE_LOCATION@${AZURE_RESOURCE_LOCATION}@g" opsmgr-pipeline/ci/azure/tasks/mongod/playbook-automation-agent.yml
-sed -i -e "s@OPSMGR_URL@${OPSMGR_CENTRAL_URL}:8080@g" opsmgr-pipeline/ci/azure/tasks/mongod/playbook-automation-agent.yml
-sed -i -e "s@OPSMGR_SERVER_HOSTNAME@${OPSMGR_SERVER_HOSTNAME}@g" opsmgr-pipeline/ci/azure/tasks/mongod/playbook-automation-agent.yml
+sed -i -e "s@AZURE_SERVER_ADMIN@${AZURE_SERVER_ADMIN}@g" opsmgr-pipeline/ci/azure/tasks/mongod/ansible/playbook-automation-agent.yml
+sed -i -e "s@AZURE_RESOURCE_LOCATION@${AZURE_RESOURCE_LOCATION}@g" opsmgr-pipeline/ci/azure/tasks/ansible/mongod/playbook-automation-agent.yml
+sed -i -e "s@OPSMGR_URL@${OPSMGR_CENTRAL_URL}:8080@g" opsmgr-pipeline/ci/azure/tasks/mongod/ansible/playbook-automation-agent.yml
+sed -i -e "s@OPSMGR_SERVER_HOSTNAME@${OPSMGR_SERVER_HOSTNAME}@g" opsmgr-pipeline/ci/azure/tasks/mongod/ansible/playbook-automation-agent.yml
 
 # Init ssh folder and Copy ssh key file
 #Get the SSH key from the configs adn add it to the ssh folder
@@ -38,6 +38,6 @@ chmod 600 ~/.ssh/id_rsa*
 cp ~/.ssh/* keys-out/
 
 
-cd opsmgr-pipeline/ci/azure/tasks/mongod/
+cd opsmgr-pipeline/ci/azure/tasks/mongod/ansible
  ansible-playbook -i hosts playbook-automation-agent.yml --private-key ~/.ssh/id_rsa
 cd ..
