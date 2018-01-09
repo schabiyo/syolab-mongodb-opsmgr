@@ -2,13 +2,13 @@
 set -e
 
 touch opsmgr-pipeline/ci/azure/tasks/ansible/hosts
-printf "%s\n" "[opsManager]" >> opsmgr-pipeline/ci/azure/tasks/ansible/hosts
-printf "%s\n" "${OPSMGR_SERVER_HOSTNAME}.${AZURE_RESOURCE_LOCATION}.cloudapp.azure.com" >> opsmgr-pipeline/ci/azure/tasks/ansible/hosts
+printf "%s\n" "[opsManager]" >> opsmgr-pipeline/ci/azure/tasks/mongod/hosts
+printf "%s\n" "${OPSMGR_SERVER_HOSTNAME}.${AZURE_RESOURCE_LOCATION}.cloudapp.azure.com" >> opsmgr-pipeline/ci/azure/tasks/mongod/hosts
 
-printf "%s\n" "[mongoDs]" >> opsmgr-pipeline/ci/azure/tasks/ansible/hosts
+printf "%s\n" "[mongoDs]" >> opsmgr-pipeline/ci/azure/tasks/mongod/hosts
 
 for (( i=1; i<"${NB_NODES}" ; i++ )) ; do
-  printf "%s\n" "${MONGOD_SERVER_PREFIX}${i}.${AZURE_RESOURCE_LOCATION}.cloudapp.azure.com" >> opsmgr-pipeline/ci/azure/tasks/ansible/hosts
+  printf "%s\n" "${MONGOD_SERVER_PREFIX}${i}.${AZURE_RESOURCE_LOCATION}.cloudapp.azure.com" >> opsmgr-pipeline/ci/azure/tasks/mongod/hosts
 done
 
 
