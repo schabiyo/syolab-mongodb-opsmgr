@@ -25,4 +25,4 @@ inputs:
   - name: opsmgr-pipeline
 
 run:
-    path: opsmgr-pipeline/ci/azure/tasks/mongods/wipe-mongods-env.sh
+    path: opsmgr-pipeline/ci/azure/tasks/mongod/wipe-mongods-env.sh
