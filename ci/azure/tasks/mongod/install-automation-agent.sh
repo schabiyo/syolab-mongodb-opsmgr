@@ -13,7 +13,7 @@ done
 
 
 sed -i -e "s@AZURE_SERVER_ADMIN@${AZURE_SERVER_ADMIN}@g" opsmgr-pipeline/ci/azure/tasks/mongod/ansible/playbook-automation-agent.yml
-sed -i -e "s@AZURE_RESOURCE_LOCATION@${AZURE_RESOURCE_LOCATION}@g" opsmgr-pipeline/ci/azure/tasks/ansible/mongod/playbook-automation-agent.yml
+sed -i -e "s@AZURE_RESOURCE_LOCATION@${AZURE_RESOURCE_LOCATION}@g" opsmgr-pipeline/ci/azure/tasks/mongod/ansible/playbook-automation-agent.yml
 sed -i -e "s@OPSMGR_URL@${OPSMGR_CENTRAL_URL}:8080@g" opsmgr-pipeline/ci/azure/tasks/mongod/ansible/playbook-automation-agent.yml
 sed -i -e "s@OPSMGR_SERVER_HOSTNAME@${OPSMGR_SERVER_HOSTNAME}@g" opsmgr-pipeline/ci/azure/tasks/mongod/ansible/playbook-automation-agent.yml
 
