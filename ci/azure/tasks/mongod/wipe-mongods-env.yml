@@ -1,0 +1,28 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source: 
+    repository: schabiyo/mongodb-azure-ci 
+    tag: latest
+
+
+params:
+  AZURE_SUBSCRIPTION_ID:
+  AZURE_CLIENT_ID: 
+  AZURE_SECRET: 
+  AZURE_TENANT: 
+
+  AZURE_RESOURCE_GROUP:
+  AZURE_RESOURCE_LOCATION:
+
+  AZURE_SERVER_ADMIN:
+  
+
+
+inputs:
+  - name: opsmgr-pipeline
+
+run:
+    path: opsmgr-pipeline/ci/azure/tasks/mongods/wipe-mongods-env.sh
