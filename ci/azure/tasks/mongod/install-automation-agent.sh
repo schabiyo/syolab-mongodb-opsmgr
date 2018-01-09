@@ -3,7 +3,7 @@ set -e
 
 touch opsmgr-pipeline/ci/azure/tasks/mongod/ansible/hosts
 printf "%s\n" "[opsManager]" >> opsmgr-pipeline/ci/azure/tasks/mongod/ansible/hosts
-printf "%s\n" "${OPSMGR_SERVER_HOSTNAME}.${AZURE_RESOURCE_LOCATION}.cloudapp.azure.com" >> opsmgr-pipeline/ci/azure/tasks/mongod/ansiblehosts
+printf "%s\n" "${OPSMGR_SERVER_HOSTNAME}.${AZURE_RESOURCE_LOCATION}.cloudapp.azure.com" >> opsmgr-pipeline/ci/azure/tasks/mongod/ansible/hosts
 
 printf "%s\n" "[mongoDs]" >> opsmgr-pipeline/ci/azure/tasks/mongod/ansible/hosts
 
@@ -14,7 +14,7 @@ done
 
 sed -i -e "s@AZURE_SERVER_ADMIN@${AZURE_SERVER_ADMIN}@g" opsmgr-pipeline/ci/azure/tasks/mongod/ansible/playbook-automation-agent.yml
 sed -i -e "s@AZURE_RESOURCE_LOCATION@${AZURE_RESOURCE_LOCATION}@g" opsmgr-pipeline/ci/azure/tasks/mongod/ansible/playbook-automation-agent.yml
-sed -i -e "s@OPSMGR_URL@${OPSMGR_CENTRAL_URL}:8080@g" opsmgr-pipeline/ci/azure/tasks/mongod/ansible/playbook-automation-agent.yml
+sed -i -e "s@OPSMGR_URL@http://${OPSMGR_CENTRAL_URL}:8080@g" opsmgr-pipeline/ci/azure/tasks/mongod/ansible/playbook-automation-agent.yml
 sed -i -e "s@OPSMGR_SERVER_HOSTNAME@${OPSMGR_SERVER_HOSTNAME}@g" opsmgr-pipeline/ci/azure/tasks/mongod/ansible/playbook-automation-agent.yml
 
 # Init ssh folder and Copy ssh key file
