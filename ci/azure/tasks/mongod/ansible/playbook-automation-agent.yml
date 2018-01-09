@@ -19,6 +19,9 @@
     opsmgr_groupid: OPSMGR_PROJECT_ID
     opsmgr_apikey: OPSMGR_API_KEY
   tasks:
+  - name: Adjust hostname
+    hostname:
+      name: {{inventory_hostname}}    
   - name: download automation agent via http
     get_url: url="OPSMGR_URL/download/agent/automation/{{autoagent}}" dest="/home/AZURE_SERVER_ADMIN/{{autoagent}}"
   - name: install automation agent
