@@ -18,7 +18,6 @@
   tasks:
   - name: download automation agent via http
     get_url: url="{{opsmanagerurl}}/download/agent/automation/{{autoagent}}" dest="/home/ec2-user/{{autoagent}}"
-    when: ca_file.stat.exists == False
   - name: install automation agent
     yum: name=/home/AZURE_SERVER_ADMIN/{{autoagent}} state=present
   - name: update config mmsGroupId
@@ -30,7 +29,6 @@
       path: /etc/mongodb-mms/automation-agent.config
       regexp: '^mmsBaseUrl='
       line: 'mmsBaseUrl={{opsmanagerurl}}'
-    when: ca_file.stat.exists == False
   - name: setup data directory
     file: path=/data state=directory mode=0755 owner=mongod group=mongod
   - name: start agent

@@ -7,7 +7,7 @@ printf "%s\n" "${OPSMGR_SERVER_HOSTNAME}.${AZURE_RESOURCE_LOCATION}.cloudapp.azu
 
 printf "%s\n" "[mongoDs]" >> opsmgr-pipeline/ci/azure/tasks/mongod/ansible/hosts
 
-for (( i=1; i<"${NB_NODES}" ; i++ )) ; do
+for (( i=1; i<="${NB_NODES}" ; i++ )) ; do
   printf "%s\n" "${MONGOD_SERVER_PREFIX}${i}.${AZURE_RESOURCE_LOCATION}.cloudapp.azure.com" >> opsmgr-pipeline/ci/azure/tasks/mongod/ansible/hosts
 done
 
