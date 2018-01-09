@@ -1,0 +1,11 @@
+---
+- name: Delete Ops Manager resources
+  hosts: localhost
+  connection: local
+  tasks:
+  - name: Delete a resource group
+    azure_rm_resourcegroup:
+      name: AZURE_RESOURCE_GROUP
+      location: AZURE_RESOURCE_LOCATION
+      state: absent
+      force: True
