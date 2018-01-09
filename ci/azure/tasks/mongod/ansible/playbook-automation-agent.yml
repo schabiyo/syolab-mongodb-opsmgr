@@ -1,6 +1,7 @@
 ---
 - hosts: opsManager
   remote_user: AZURE_SERVER_ADMIN
+  become: yes
   tasks:
   - name: get automation apikey
     shell: mongo 127.0.0.1:27017 --quiet --eval "print(db.getSiblingDB('mmsdbconfig').config.customers.findOne().k)"
