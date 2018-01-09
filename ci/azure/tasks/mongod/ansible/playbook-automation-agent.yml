@@ -19,8 +19,6 @@
     opsmgr_groupid: OPSMGR_PROJECT_ID
     opsmgr_apikey: OPSMGR_API_KEY
   tasks:
-  - name: debug test - hostvars
-    debug: var=hostvars[inventory_hostname]
   - name: Adjust hostname
     hostname:
       name: "{{inventory_hostname}}"    
