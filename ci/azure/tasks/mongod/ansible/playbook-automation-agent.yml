@@ -15,7 +15,7 @@
   remote_user: AZURE_SERVER_ADMIN
   become: yes
   vars:
-    autoagent: mongodb-mms-automation-agent-manager-latest.x86_64.rpm
+    autoagent: mongodb-mms-automation-agent-manager-latest.x86_64.rhel7.rpm
     opsmgr_groupid: OPSMGR_PROJECT_ID
     opsmgr_apikey: OPSMGR_API_KEY
   tasks:
