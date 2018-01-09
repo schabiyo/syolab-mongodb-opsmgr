@@ -17,7 +17,7 @@
     autoagent: mongodb-mms-automation-agent-manager-latest.x86_64.rpm
   tasks:
   - name: download automation agent via http
-    get_url: url="{{opsmanagerurl}}/download/agent/automation/{{autoagent}}" dest="/home/ec2-user/{{autoagent}}"
+    get_url: url="OPSMGR_URL/download/agent/automation/{{autoagent}}" dest="/home/AZURE_SERVER_ADMIN/{{autoagent}}"
   - name: install automation agent
     yum: name=/home/AZURE_SERVER_ADMIN/{{autoagent}} state=present
   - name: update config mmsGroupId
@@ -28,7 +28,7 @@
     lineinfile:
       path: /etc/mongodb-mms/automation-agent.config
       regexp: '^mmsBaseUrl='
-      line: 'mmsBaseUrl={{opsmanagerurl}}'
+      line: 'mmsBaseUrl=OPSMGR_URL'
   - name: setup data directory
     file: path=/data state=directory mode=0755 owner=mongod group=mongod
   - name: start agent
