@@ -27,7 +27,7 @@
       allocation_method: Static
       domain_name_label: "syomongod{{ item }}"
       name: "syomongod{{ item }}"
-    with_sequence: count=2
+    with_sequence: count=NB_NODES
   - name: Create Network Security Group that allows Ports 27000-27020
     azure_rm_securitygroup:
       resource_group: AZURE_RESOURCE_GROUP
@@ -53,7 +53,7 @@
       subnet: mySubnet
       public_ip_name: "syomongod{{ item }}"
       security_group: mongodsNSG
-    with_sequence: count=2
+    with_sequence: count=NB_NODES
   - name: Create VM
     azure_rm_virtualmachine:
       resource_group: AZURE_RESOURCE_GROUP
@@ -72,4 +72,4 @@
         publisher: OpenLogic
         sku: '7.3'
         version: latest
-    with_sequence: count=2
+    with_sequence: count=NB_NODES
