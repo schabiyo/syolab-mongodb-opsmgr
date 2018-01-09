@@ -18,6 +18,8 @@ sed -i -e "s@AZURE_SERVER_ADMIN@${AZURE_SERVER_ADMIN}@g" opsmgr-pipeline/ci/azur
 sed -i -e "s@AZURE_RESOURCE_LOCATION@${AZURE_RESOURCE_LOCATION}@g" opsmgr-pipeline/ci/azure/tasks/mongod/ansible/playbook-automation-agent.yml
 sed -i -e "s@OPSMGR_URL@http://${OPSMGR_CENTRAL_URL}:8080@g" opsmgr-pipeline/ci/azure/tasks/mongod/ansible/playbook-automation-agent.yml
 sed -i -e "s@OPSMGR_SERVER@${opsDomain}@g" opsmgr-pipeline/ci/azure/tasks/mongod/ansible/playbook-automation-agent.yml
+sed -i -e "s@OPSMGR_API_KEY@${OPSMGR_API_KEY}@g" opsmgr-pipeline/ci/azure/tasks/mongod/ansible/playbook-automation-agent.yml
+sed -i -e "s@OPSMGR_PROJECT_ID@${OPSMGR_PROJECT_ID}@g" opsmgr-pipeline/ci/azure/tasks/mongod/ansible/playbook-automation-agent.yml
 
 
 # Init ssh folder and Copy ssh key file
