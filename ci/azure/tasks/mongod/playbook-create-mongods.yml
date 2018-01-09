@@ -33,9 +33,15 @@
       resource_group: AZURE_RESOURCE_GROUP
       name: mongodsNSG
       rules:
+        - name: MongoDB
+           protocol: Tcp
+           destination_port_range: 27000-27020
+           access: Allow
+           priority: 101
+           direction: Inbound
         - name: SSH
           protocol: Tcp
-          destination_port_range: 27000-27020
+          destination_port_range: 22
           access: Allow
           priority: 1001
           direction: Inbound

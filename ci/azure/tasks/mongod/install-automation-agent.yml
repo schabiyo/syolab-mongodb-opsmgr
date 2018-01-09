@@ -1,0 +1,34 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source: 
+    repository: schabiyo/mongodb-azure-ci 
+    tag: latest
+
+
+params:
+  AZURE_SUBSCRIPTION_ID:
+  AZURE_CLIENT_ID: 
+  AZURE_SECRET: 
+  AZURE_TENANT: 
+  OPSMGR_CENTRAL_URL:
+  AZURE_RESOURCE_GROUP:
+  AZURE_RESOURCE_LOCATION:
+  MONGOD_DATA_DISK_TYPE:
+  MONGOD_SERVER_PREFIX:
+  AZURE_SERVER_ADMIN:
+  MONGOD_SSHKEY_PUBLIC:
+  OPSMGR_SERVER_HOSTNAME:
+  
+
+
+inputs:
+  - name: opsmgr-pipeline
+
+outputs:
+  - name: keys-out
+
+run:
+    path: opsmgr-pipeline/ci/azure/tasks/mongod/install-automation-agent.sh
