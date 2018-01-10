@@ -14,6 +14,7 @@ groups:
   jobs:
   - provision-servers
   - install-automation-agent
+  - wipe-mongods-env
 
 
 
@@ -41,7 +42,8 @@ jobs:
       OPSMGR_SERVER_HOSTNAME: {{OPSMGR_SERVER_HOSTNAME}}
       AZURE_SERVER_ADMIN: {{AZURE_SERVER_ADMIN}}
       NB_NODES: {{NB_NODES}}
-      MONGOD_PREFIX: {{MONGOD_PREFIX}}
+      MONGOD_DATA_DISK_TYPE: {{MONGOD_DATA_DISK_TYPE}}
+      MONGOD_SERVER_PREFIX: {{MONGOD_SERVER_PREFIX}}
       MONGOD_SSHKEY_PRIVATE: {{MONGOD_SSHKEY_PRIVATE}}
       MONGOD_SSHKEY_PUBLIC: {{MONGOD_SSHKEY_PUBLIC}}
 
@@ -52,6 +54,23 @@ jobs:
     passed: [provision-servers]
   - task: Install Automation agent 
     file: opsmgr-pipeline/ci/azure/tasks/mongod/install-automation-agent.yml
+    params:
+      AZURE_SUBSCRIPTION_ID: {{AZURE_SUBSCRIPTION_ID}}
+      AZURE_CLIENT_ID: {{AZURE_CLIENT_ID}}
+      AZURE_SECRET: {{AZURE_SECRET}}
+      AZURE_TENANT: {{AZURE_TENANT}}
+      OPSMGR_CENTRAL_URL: {{OPSMGR_CENTRAL_URL}}
+      AZURE_RESOURCE_GROUP: {{MONGOD_RESOURCE_GROUP}}
+      AZURE_RESOURCE_LOCATION: {{MONGOD_LOCATION}}
+      OPSMGR_SERVER_HOSTNAME: {{OPSMGR_SERVER_HOSTNAME}}
+      AZURE_SERVER_ADMIN: {{AZURE_SERVER_ADMIN}}
+      NB_NODES: {{NB_NODES}}
+      MMS_BASE_URL: {{MMS_BASE_URL}}
+      OPSMGR_PROJECT_ID: {{OPSMGR_PROJECT_ID}}
+      OPSMGR_API_KEY: {{OPSMGR_API_KEY}}
+      MONGOD_SERVER_PREFIX: {{MONGOD_SERVER_PREFIX}}
+      MONGOD_SSHKEY_PRIVATE: {{MONGOD_SSHKEY_PRIVATE}}
+      MONGOD_SSHKEY_PUBLIC: {{MONGOD_SSHKEY_PUBLIC}}
 
 
     
@@ -60,7 +79,7 @@ jobs:
   serial_groups: [oms]
   plan:
   - get: opsmgr-pipeline
-    trigger: true
+    trigger: false
   - task: provision
     file: opsmgr-pipeline/ci/azure/tasks/create-opsmgr-vm.yml
     params:
@@ -194,6 +213,18 @@ jobs:
       OPSMGR_CLIENT_CERTIFICATE_MODE: {{OPSMGR_PEM}}
 
 
+- name: wipe-mongods-env
+  plan:
+  - aggregate:
+    - get: opsmgr-pipeline
+  - task: Destroy all MongoD nodes
+    file: opsmgr-pipeline/ci/azure/tasks/mongod/wipe-mongods-env.yml
+    params:
+      AZURE_SUBSCRIPTION_ID: {{AZURE_SUBSCRIPTION_ID}}
+      AZURE_CLIENT_ID: {{AZURE_CLIENT_ID}}
+      AZURE_SECRET: {{AZURE_SECRET}}
+      AZURE_TENANT: {{AZURE_TENANT}}
+      AZURE_RESOURCE_GROUP: {{MONGOD_RESOURCE_GROUP}}
 
 
 - name: wipe-env
