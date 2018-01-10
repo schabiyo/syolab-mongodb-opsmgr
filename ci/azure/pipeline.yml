@@ -25,6 +25,14 @@ resources:
     uri: https://github.com/schabiyo/syolab-mongodb-opsmgr.git
     branch: master
 
+- name: teardown-at-midnight
+  type: time
+  source:
+    start: 3:00 AM
+    stop: 2:00 AM
+    location: Canada/Eastern
+    days: [Wednesday, Friday]
+
 jobs:
 - name: provision-servers
   plan:
@@ -52,7 +60,8 @@ jobs:
   - get: opsmgr-pipeline
     trigger: true
     passed: [provision-servers]
-  - task: Install Automation agent 
+  - task: Install Automation agent
+    attempts: 3
     file: opsmgr-pipeline/ci/azure/tasks/mongod/install-automation-agent.yml
     params:
       AZURE_SUBSCRIPTION_ID: {{AZURE_SUBSCRIPTION_ID}}
