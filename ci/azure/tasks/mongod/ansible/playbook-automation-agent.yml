@@ -24,7 +24,7 @@
     hostname:
       name: "{{inventory_hostname}}"    
   - name: download automation agent via http
-    get_url: url="OPSMGR_URL/download/agent/automation/{{autoagent}}" dest="/home/AZURE_SERVER_ADMIN/{{autoagent}}"
+    get_url: url="MMS_BASE_URL/download/agent/automation/{{autoagent}}" dest="/home/AZURE_SERVER_ADMIN/{{autoagent}}"
   - name: install automation agent
     yum: name=/home/AZURE_SERVER_ADMIN/{{autoagent}} state=present
   - name: update config mmsGroupId
@@ -35,7 +35,7 @@
     lineinfile:
       path: /etc/mongodb-mms/automation-agent.config
       regexp: '^mmsBaseUrl='
-      line: 'mmsBaseUrl=OPSMGR_URL'
+      line: 'mmsBaseUrl=MMS_BASE_URL'
     when: mmsBaseUrl != ""
   - name: setup data directory
     file: path=/data state=directory mode=0755 owner=mongod group=mongod
