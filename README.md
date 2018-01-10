@@ -8,7 +8,7 @@ My pipelines are hosted here if you want to take look: http://ci.syolab.io:8080
 Follow the instruction on that page for a manual deployment.
 
 
-**NOTE: You don't have to use Concourse. As long as you can run BASH script and Ansible playbook you are good to go.**
+**NOTE:** You don't have to use Concourse. As long as you can run BASH script and Ansible playbook you are good to go.
 
 
 ## Table of contents
