@@ -36,7 +36,6 @@
       path: /etc/mongodb-mms/automation-agent.config
       regexp: '^mmsBaseUrl='
       line: 'mmsBaseUrl=MMS_BASE_URL'
-    when: mmsBaseUrl != ""
   - name: setup data directory
     file: path=/data state=directory mode=0755 owner=mongod group=mongod
   - name: start agent
