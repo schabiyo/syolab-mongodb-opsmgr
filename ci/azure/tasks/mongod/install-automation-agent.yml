@@ -23,7 +23,7 @@ params:
   OPSMGR_SERVER_HOSTNAME:
   OPSMGR_API_KEY:
   OPSMGR_PROJECT_ID:
-  
+  MMS_BASE_URL: 
 
 
 inputs:
