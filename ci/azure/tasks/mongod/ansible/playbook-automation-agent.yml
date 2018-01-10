@@ -18,6 +18,7 @@
     autoagent: mongodb-mms-automation-agent-manager-latest.x86_64.rhel7.rpm
     opsmgr_groupid: OPSMGR_PROJECT_ID
     opsmgr_apikey: OPSMGR_API_KEY
+    mmsBaseUrl: MMS_BASE_URL
   tasks:
   - name: Adjust hostname
     hostname:
@@ -35,6 +36,7 @@
       path: /etc/mongodb-mms/automation-agent.config
       regexp: '^mmsBaseUrl='
       line: 'mmsBaseUrl=OPSMGR_URL'
+    when: mmsBaseUrl != ""
   - name: setup data directory
     file: path=/data state=directory mode=0755 owner=mongod group=mongod
   - name: start agent
