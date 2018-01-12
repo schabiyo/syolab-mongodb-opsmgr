@@ -3,18 +3,18 @@
   remote_user: AZURE_SERVER_ADMIN
   become: yes
   vars:
-    opsmanagerGPG: mongodb-mms-3.6.0.582-1.x86_64.rpm.gpg
-    opsmanager: mongodb-mms-3.6.0.582-1.x86_64.rpm
+    opsmanagerGPG: mongodb-mms-3.6.1.591-1.x86_64.rpm.gpg
+    opsmanager: mongodb-mms-3.6.2.596-1.x86_64.rpm
   tasks:
   - name: opsmgr check
     stat: path=/home/AZURE_SERVER_ADMIN/{{opsmanagerGPG}}
     register: opsmgr_file
   - name: Download Ops Manager
-    get_url: url=https://s3.eu-central-1.amazonaws.com/torstenspindler/{{opsmanagerGPG}} dest=/home/AZURE_SERVER_ADMIN/{{opsmanagerGPG}}
+    get_url: url=https://s3.amazonaws.com/syo-demos/binaries/opsmgr/rpm-3.6.0/{{opsmanager}} dest=/home/AZURE_SERVER_ADMIN/{{opsmanager}}
     when: opsmgr_file.stat.exists != True
-  - name: Decipher Ops Manager
-    shell: echo 1234 | gpg --batch --passphrase-fd 0 {{opsmanagerGPG}}
-    when: opsmgr_file.stat.exists != True
+    #  - name: Decipher Ops Manager
+    #shell: echo 1234 | gpg --batch --passphrase-fd 0 {{opsmanagerGPG}}
+    #when: opsmgr_file.stat.exists != True
   - name: Install Ops Manager rpm
     yum: name=/home/AZURE_SERVER_ADMIN/{{opsmanager}} state=present
   - name: Start Ops Manager service
