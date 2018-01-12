@@ -24,3 +24,6 @@
       port: 8080
       delay: 20
       msg: Looks like Ops Manager fails to start
+    register: result
+  - file: path=/data/head state=directory mode=0755 owner=mongodb-mms group=mongodb-mms
+    when: result|succeeded
