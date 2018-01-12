@@ -27,3 +27,5 @@
     register: result
   - file: path=/data/head state=directory mode=0755 owner=mongodb-mms group=mongodb-mms
     when: result|succeeded
+  - file: path=/data/snapshots state=directory mode=0755 owner=mongodb-mms group=mongodb-mms
+    when: result|succeeded
