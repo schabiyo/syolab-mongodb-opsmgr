@@ -25,8 +25,8 @@
     azure_rm_publicipaddress:
       resource_group: AZURE_RESOURCE_GROUP
       allocation_method: Static
-      domain_name_label: "syomongod{{ item }}"
-      name: "syomongod{{ item }}"
+      domain_name_label: "MONGOD_SERVER_PREFIX{{ item }}"
+      name: "MONGOD_SERVER_PREFIX{{ item }}"
     with_sequence: count=NB_NODES
   - name: Create Network Security Group that allows Ports 27000-27020
     azure_rm_securitygroup:
@@ -48,25 +48,25 @@
   - name: Create virtual network inteface card
     azure_rm_networkinterface:
       resource_group: AZURE_RESOURCE_GROUP
-      name: "syomongodNIC{{ item }}"
+      name: "MONGOD_SERVER_PREFIXNIC{{ item }}"
       virtual_network: mongodsVnet
       subnet: mySubnet
-      public_ip_name: "syomongod{{ item }}"
+      public_ip_name: "MONGOD_SERVER_PREFIX{{ item }}"
       security_group: mongodsNSG
     with_sequence: count=NB_NODES
   - name: Create VM
     azure_rm_virtualmachine:
       resource_group: AZURE_RESOURCE_GROUP
-      name: "syomongod{{ item }}"
+      name: "MONGOD_SERVER_PREFIX{{ item }}"
       vm_size: Standard_F1s
       managed_disk_type: MONGOD_DATA_DISK_TYPE
       admin_username: AZURE_SERVER_ADMIN
-      short_hostname: "syomongod{{ item }}"
+      short_hostname: "MONGOD_SERVER_PREFIX{{ item }}"
       ssh_password_enabled: false
       ssh_public_keys:
         - path: /home/AZURE_SERVER_ADMIN/.ssh/authorized_keys
           key_data: MONGOD_SSHKEY_PUBLIC
-      network_interfaces: "syomongodNIC{{ item }}"
+      network_interfaces: "MONGOD_SERVER_PREFIXNIC{{ item }}"
       image:
         offer: CentOS
         publisher: OpenLogic

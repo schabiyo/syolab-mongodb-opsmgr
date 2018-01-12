@@ -13,7 +13,7 @@ sed -i -e "s~MONGOD_SSHKEY_PUBLIC~${MONGOD_SSHKEY_PUBLIC}~g" opsmgr-pipeline/ci/
 sed -i -e "s@AZURE_SERVER_ADMIN@${AZURE_SERVER_ADMIN}@g" opsmgr-pipeline/ci/azure/tasks/mongod/ansible/playbook-create-mongods.yml
 sed -i -e "s@NB_NODES@${NB_NODES}@g" opsmgr-pipeline/ci/azure/tasks/mongod/ansible/playbook-create-mongods.yml
 sed -i -e "s@MONGOD_DATA_DISK_TYPE@${MONGOD_DATA_DISK_TYPE}@g" opsmgr-pipeline/ci/azure/tasks/mongod/ansible/playbook-create-mongods.yml
-
+sed -i -e "s@MONGOD_SERVER_PREFIX@${MONGOD_SERVER_PREFIX}@g" opsmgr-pipeline/ci/azure/tasks/mongod/ansible/playbook-create-mongods.yml
 
 # Init ssh folder and Copy ssh key file
 #Get the SSH key from the configs adn add it to the ssh folder
