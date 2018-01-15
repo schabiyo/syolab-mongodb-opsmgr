@@ -7,8 +7,15 @@
     get_url: url=https://dl.minio.io/server/minio/release/linux-amd64/miniob dest=/usr/bin/minio
   - name: Make Minio Binarie executable
     file: path=/usr/bin/minio mode=0755
+  - name: Check if Minio is running
+    shell: ps aux | grep minio | grep 'azure'
+    ignore_errors: yes
+    changed_when: false
+    register: service_minio_status
+  - debug: msg= "{{ service_minio_status }}"
   - name: Start Minio Server
     shell: minio gateway azure
     environment:
       MINIO_ACCESS_KEY: STORAGE_ACCOUNT_NAME
       MINIO_SECRET_KEY: STORAGEACCOUNT_SECRET_KEY
+    when: service_minio_status.stdout.find('minio gateway') == -1
