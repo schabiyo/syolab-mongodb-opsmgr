@@ -1,0 +1,14 @@
+---
+- hosts: OpsManager
+  remote_user: AZURE_SERVER_ADMIN
+  become: yes
+  tasks:
+  - name: Download Minio
+    get_url: url=https://dl.minio.io/server/minio/release/linux-amd64/miniob dest=/usr/bin/minio
+  - name: Make Minio Binarie executable
+    file: path=/usr/bin/minio mode=0755
+  - name: Start Minio Server
+    shell: minio gateway azure
+    environment:
+      MINIO_ACCESS_KEY: STORAGE_ACCOUNT_NAME
+      MINIO_SECRET_KEY: STORAGEACCOUNT_SECRET_KEY
