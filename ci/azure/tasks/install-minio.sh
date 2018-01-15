@@ -22,7 +22,7 @@ else
     key=$(jq .[0].value <<< $result)
     TRIMMED_RESULT="${key%\"}"
     TRIMMED_RESULT="${TRIMMED_RESULT#\"}"
-    eval $responsevar="'$TRIMMED_RESULT'"
+    echo $TRIMMED_RESULT
     sed -i -e "s@STORAGEACCOUNT_SECRET_KEY@${TRIMMED_RESULT}@g" opsmgr-pipeline/ci/azure/tasks/ansible/playbook-install-minio.yml
     sed -i -e "s@AZURE_SERVER_ADMIN@${AZURE_SERVER_ADMIN}@g" opsmgr-pipeline/ci/azure/tasks/ansible/playbook-install-minio.yml
     sed -i -e "s@STORAGE_ACCOUNT_NAME@${STORAGE_ACCOUNT_NAME}@g" opsmgr-pipeline/ci/azure/tasks/ansible/playbook-install-minio.yml
