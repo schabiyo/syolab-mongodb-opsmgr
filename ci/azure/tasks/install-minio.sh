@@ -19,7 +19,7 @@ if [[ $result == *"error"* ]]; then
   exit 1
 else
     #Get the state
-    key=$(jq .value <<< $result)
+    key=$(jq .[0].value <<< $result)
     TRIMMED_RESULT="${key%\"}"
     TRIMMED_RESULT="${TRIMMED_RESULT#\"}"
     eval $responsevar="'$TRIMMED_RESULT'"
