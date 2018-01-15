@@ -7,9 +7,9 @@ sed -i -e "s@AZURE_RESOURCE_LOCATION@${AZURE_RESOURCE_LOCATION}@g" opsmgr-pipeli
 az login --service-principal -u "$AZURE_CLIENT_ID" -p "$AZURE_SECRET" --tenant "$AZURE_TENANT" &> /dev/null
 az account set --subscription "$AZURE_SUBSCRIPTION_ID"  &> /dev/null
 
-COMMAND="az storage account  keys list --resource-group AZURE_RESOURCE_LOCATION --account-name STORAGE_ACCOUNT_NAME"
+COMMAND="az storage account  keys list --resource-group AZURE_RESOURCE_GROUP --account-name STORAGE_ACCOUNT_NAME"
 
-NEW_COMMAND=$(sed  "s@AZURE_RESOURCE_LOCATION@${AZURE_RESOURCE_LOCATION}@g" <<< $COMMAND)
+NEW_COMMAND=$(sed  "s@AZURE_RESOURCE_GROUP@${AZURE_RESOURCE_GROUP}@g" <<< $COMMAND)
 NEW_COMMAND=$(sed  "s@STORAGE_ACCOUNT_NAME@${STORAGE_ACCOUNT_NAME}@g" <<< $NEW_COMMAND)
 
 #Check if we got a 200 back
