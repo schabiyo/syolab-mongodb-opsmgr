@@ -14,7 +14,7 @@
     register: service_minio_status
   - debug: msg= "{{ service_minio_status }}"
   - name: Start Minio Server
-    shell: minio gateway azure
+    shell: nohup minio gateway azure </dev/null >/dev/null 2>&1 &
     environment:
       MINIO_ACCESS_KEY: STORAGE_ACCOUNT_NAME
       MINIO_SECRET_KEY: STORAGEACCOUNT_SECRET_KEY
