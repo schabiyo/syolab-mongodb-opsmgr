@@ -90,6 +90,6 @@
     azure_rm_storageaccount:
       resource_group: AZURE_RESOURCE_GROUP
       name: syominio
-      kind: BlobStorage
+      #kind: BlobStorage
       access_tier: Cool
-      account_type: Premium_LRS
+      account_type: Standard_LRS
