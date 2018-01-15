@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+sed -i -e "s@OPSMGR_SERVER_HOSTNAME@${OPSMGR_SERVER_HOSTNAME}@g" opsmgr-pipeline/ci/azure/tasks/ansible/opsmgr-host
+sed -i -e "s@AZURE_RESOURCE_LOCATION@${AZURE_RESOURCE_LOCATION}@g" opsmgr-pipeline/ci/azure/tasks/ansible/opsmgr-host
+
 az login --service-principal -u "$AZURE_CLIENT_ID" -p "$AZURE_SECRET" --tenant "$AZURE_TENANT" &> /dev/null
 az account set --subscription "$AZURE_SUBSCRIPTION_ID"  &> /dev/null
 
@@ -27,6 +30,6 @@ else
     mkdir ~/.ssh
     cp keys-out/* ~/.ssh/
     cd opsmgr-pipeline/ci/azure/tasks/ansible/
-      ansible-playbook -i opsmgr-host playbook-install-opsmgr.yml --private-key ~/.ssh/id_rsa
+      ansible-playbook -i opsmgr-host playbook-install-minio.yml --private-key ~/.ssh/id_rsa
     cd ..
 fi
