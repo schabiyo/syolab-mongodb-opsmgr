@@ -12,9 +12,10 @@
   - name: Download Ops Manager
     get_url: url=https://s3.amazonaws.com/syo-demos/binaries/opsmgr/rpm-3.6.0/{{opsmanager}} dest=/home/AZURE_SERVER_ADMIN/{{opsmanager}}
     when: opsmgr_file.stat.exists != True
-    #  - name: Decipher Ops Manager
-    #shell: echo 1234 | gpg --batch --passphrase-fd 0 {{opsmanagerGPG}}
-    #when: opsmgr_file.stat.exists != True
+  - name: Download Minio
+    get_url: url=https://dl.minio.io/server/minio/release/linux-amd64/miniob dest=/home/AZURE_SERVER_ADMIN/minio
+  - name: Make Minio Binarie executable
+    file: path=/home/AZURE_SERVER_ADMIN/minio mode=0755
   - name: Install Ops Manager rpm
     yum: name=/home/AZURE_SERVER_ADMIN/{{opsmanager}} state=present
   - name: Start Ops Manager service
@@ -29,3 +30,8 @@
     when: result|succeeded
   - file: path=/data/snapshots state=directory mode=0755 owner=mongodb-mms group=mongodb-mms
     when: result|succeeded
+  - name: Start Minio Server
+    shell: minio gateway azure
+    environment:
+      MINIO_ACCESS_KEY: cloudshellstorageeast156
+      MINIO_SECRET_KEY: f9boLMQ9XLzGMsh8BpxDU6Vj895f7BGNltuoi7+w8v92iQsSTxhzm3hveH3S+E9OXO4q11nPttx0u5/Ze+s2Hg==

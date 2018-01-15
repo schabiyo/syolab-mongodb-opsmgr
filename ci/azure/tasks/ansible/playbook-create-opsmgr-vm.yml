@@ -50,6 +50,12 @@
           access: Allow
           priority: 102
           direction: Inbound
+        - name: MINIO
+          protocol:
+          destination_port_range: 8443
+          access: Allow
+          priority: 103
+          direction: Inbound
   - name: Create virtual network inteface card
     azure_rm_networkinterface:
       resource_group: AZURE_RESOURCE_GROUP
@@ -80,3 +86,10 @@
         publisher: OpenLogic
         sku: '7.3'
         version: latest
+  - name: Create Blob Storage for Backup
+    azure_rm_storageaccount:
+      resource_group: AZURE_RESOURCE_GROUP
+      name: syominio
+      kind: BlobStorage
+      access_tier: Cool
+      account_type: Premium_LRS
