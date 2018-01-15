@@ -13,7 +13,7 @@ NEW_COMMAND=$(sed  "s@AZURE_RESOURCE_LOCATION@${AZURE_RESOURCE_LOCATION}@g" <<< 
 NEW_COMMAND=$(sed  "s@STORAGE_ACCOUNT_NAME@${STORAGE_ACCOUNT_NAME}@g" <<< $NEW_COMMAND)
 
 #Check if we got a 200 back
-result=$(eval curl $NEW_COMMAND)
+result=$(eval $NEW_COMMAND)
 if [[ $result == *"error"* ]]; then
   echo $result
   exit 1
