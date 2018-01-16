@@ -4,7 +4,7 @@
   become: yes
   tasks:
   - name: Download Minio
-    get_url: url=https://dl.minio.io/server/minio/release/linux-amd64/miniob dest=/usr/bin/minio
+    get_url: url=https://dl.minio.io/server/minio/release/linux-amd64/minio dest=/usr/bin/minio
   - name: Make Minio Binarie executable
     file: path=/usr/bin/minio mode=0755
   - name: Check if Minio is running
