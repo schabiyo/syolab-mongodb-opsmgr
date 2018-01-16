@@ -68,7 +68,7 @@
     azure_rm_virtualmachine:
       resource_group: AZURE_RESOURCE_GROUP
       name: OpsMgr
-      vm_size: Standard_DS1_v2
+      vm_size: Standard_DS2_v2
       managed_disk_type: OPSMGR_DATA_DISK_TYPE
       admin_username: AZURE_SERVER_ADMIN
       short_hostname: OPSMGR_SERVER_HOSTNAME
