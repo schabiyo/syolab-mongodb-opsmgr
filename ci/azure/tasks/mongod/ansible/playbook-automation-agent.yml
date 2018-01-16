@@ -39,4 +39,4 @@
   - name: setup data directory
     file: path=/data state=directory mode=0755 owner=mongod group=mongod
   - name: start agent
-    service: name=mongodb-mms-automation-agent state=started
+    service: name=mongodb-mms-automation-agent state=restarted
