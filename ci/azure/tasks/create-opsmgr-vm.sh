@@ -15,7 +15,6 @@ sed -i -e "s@OPSMGR_DATA_DISK_SIZE@${OPSMGR_DATA_DISK_SIZE}@g" opsmgr-pipeline/c
 sed -i -e "s@OPSMGR_DATA_DISK_TYPE@${OPSMGR_DATA_DISK_TYPE}@g" opsmgr-pipeline/ci/azure/tasks/ansible/playbook-create-opsmgr-vm.yml
 sed -i -e "s@OPSMGR_VM_TYPE@${OPSMGR_VM_TYPE}@g" opsmgr-pipeline/ci/azure/tasks/ansible/playbook-create-opsmgr-vm.yml
 
-OPSMGR_VM_TYPE
 
 # Init ssh folder and Copy ssh key file
 #Get the SSH key from the configs adn add it to the ssh folder
