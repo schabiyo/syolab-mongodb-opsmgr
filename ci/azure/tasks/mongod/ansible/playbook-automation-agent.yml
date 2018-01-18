@@ -28,7 +28,7 @@
   - name: install automation agent
     yum: name=/home/AZURE_SERVER_ADMIN/{{autoagent}} state=present
   - name: update config mmsGroupId
-    shell: sed -i -e "s/mmsGroupId.*/mmsGroupId={{opsmgr_groupid}}/" /etc/mongodb-mms/automation-agent.config
+    shell: sed -i -e "s/mmsGroupId.*/mmsGroupId={{hostvars['OPSMGR_SERVER']['opsmanager_groupid'].stdout_lines[0]}}/" /etc/mongodb-mms/automation-agent.config
   - name: update config mmsApiKey
     shell: sed -i -e "s/mmsApiKey.*/mmsApiKey={{opsmgr_apikey}}/" /etc/mongodb-mms/automation-agent.config
   - name: update config mmsBaseUrl to http, if no ssl
